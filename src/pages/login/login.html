@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page5">
+  <form [formGroup]="form" (ngSubmit)="cadastrar()" id="login-form3">
+    <ion-list id="login-list3">
+      <ion-item id="login-input2">
+        <ion-label>
+          Email
+        </ion-label>
+        <ion-input formControlName="email" type="email"></ion-input>
+      </ion-item>
+      <ion-item id="login-input3">
+        <ion-label>
+          Senha
+        </ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div class="spacer" style="height:40px;" id="login-spacer1"></div>
+    <button type="submit" id="login-button8" ion-button color="stable" block>
+      Entrar
+    </button>
+    <button id="login-button9" ion-button clear color="positive" block on-click="goToCadastro()">
+      Cadastre-se
+    </button>
+  </form>
+  <div [hidden]="flag">
+    <p>Conectado como: {{e_mail}}</p>
+    <a on-click="sair()">Sair</a>
+  </div>
+</ion-content>

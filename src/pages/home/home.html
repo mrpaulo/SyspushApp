@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Página teste para acrescentar Alertas
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addSong()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let alert of alerts | async">
+      Título: {{alert.title_alert}}
+    </ion-item>
+  </ion-list>
+  <h2>Push Details Page</h2>
+  <p>Clicking push notification should navigate you here </p>
+  <h6>{{pushMessage}}</h6>
+</ion-content>

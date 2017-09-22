@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Cadastro
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page10">
+  <form [formGroup]="form" (ngSubmit)="cadastrar()">
+    <ion-list id="cadastro-list6">
+      <ion-item id="cadastro-input4">
+        <ion-label>
+          Nome
+        </ion-label>
+        <ion-input formControlName="name" type="text"></ion-input>
+      </ion-item>
+      <ion-item id="cadastro-input7">
+        <ion-label>
+          Celular
+        </ion-label>
+        <ion-input formControlName="cellphone" type="text"></ion-input>
+      </ion-item>
+      <ion-item id="cadastro-input5">
+        <ion-label>
+          Email
+        </ion-label>
+        <ion-input formControlName="email" type="email"></ion-input>
+      </ion-item>
+      <ion-item id="cadastro-input6">
+        <ion-label>
+          Password
+        </ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-item id="cadastro-toggle1">
+      <ion-label>
+        <ion-icon name="locate"></ion-icon>
+        Usar localização        
+      </ion-label>
+      <ion-toggle formControlName="localizar" color="positive" checked="true"></ion-toggle>
+    </ion-item>    
+    <button type="submit" id="cadastro-button13" ion-button color="stable" block>
+      Cadastrar
+    </button>
+  </form>
+</ion-content>

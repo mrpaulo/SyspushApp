@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Lista Usuários</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding id="page13">
+  <ion-list id="histRicoAlerta-list2">
+    <ion-item color="none" *ngFor="let user of users | async " (click)="showOptions(user.$key, user.name, user.email, user.cellphone, user.type_user)">
+      <h2>Nome: {{user.name}}</h2>      
+      <p>E-mail: {{user.email}}</p>
+      <p>Celular: {{user.cellphone}}</p> 
+      <p>Tipo: {{user.type_user}}</p>      
+    </ion-item>
+  </ion-list>
+</ion-content>

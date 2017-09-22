@@ -1,0 +1,107 @@
+*FireBase:
+Project name: 
+SysPush
+
+Project ID:
+syspush-prmr
+
+Web API Key:
+AIzaSyCqnIxiNh5V5vUFC2svytMYBcXmLz2zRdE
+
+*Android App
+App ID:
+1:105371248958:android:a31b454dadd94ef3
+
+App nickname:
+Syspush App
+
+Package name:
+br.com.syspush.android
+
+*Cloud Messaging
+Server key:
+AAAAGIidqT4:APA91bF04X4ul2QNP-Q1Zu3J2EvKdbBZ7uzmjGXijzz5Q6U7-SkJ2Mrfsn48E1XHed2MD7Mxcih-dHnf1LqdwdT8G2cBFwheC2NIOMp9e_QR0ND29H5MB8h7y4PD9Drsv1HIBAGIkbTC
+
+Legacy server key:
+AIzaSyA3_aYIUfIcDXinXC9kCOEay1m60JXJdmM
+
+Sender ID:
+105371248958
+
+*Database:
+https://syspush-prmr.firebaseio.com/
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyCqnIxiNh5V5vUFC2svytMYBcXmLz2zRdE',
+  authDomain: 'syspush-prmr.firebaseapp.com',
+  databaseURL: 'https://syspush-prmr.firebaseio.com',
+  projectId: 'syspush-prmr',
+  storageBucket: 'syspush-prmr.appspot.com',
+  messagingSenderId: '105371248958'
+};
+
+*Comandos GIT
+{
+sudo git init
+Sudo git add .
+Sudo git commit -m “comentario”
+sudo git remote add origin https://github.com/mrpaulo/SistemaDeAlerta.git
+sudo git push origin master
+
+Repeti sempre
+Sudo git add .
+Sudo git commit -m “comentario”
+sudo git push origin master
+}
+
+*Emulador
+ionic cordova run android -lcs -- -d  
+ionic cordova run android -lcs --address localhost
+
+*Build
+ionic cordova build android
+
+*Cloudinary
+Cloud name:	
+dht8hrgql
+
+Unsigned upload preset name:
+zq35ikx2
+
+API Key:	
+223934272283849
+
+API Secret:	
+sWa1t9n_SKIIyQfj0a80keblmgQ
+
+Environment variable:	
+CLOUDINARY_URL=cloudinary://223934272283849:sWa1t9n_SKIIyQfj0a80keblmgQ@dht8hrgql
+
+Base delivery URL:	http://res.cloudinary.com/dht8hrgql 
+
+Secure delivery URL:	https://res.cloudinary.com/dht8hrgql 
+
+API Base URL:	https://api.cloudinary.com/v1_1/dht8hrgql
+
+samples: http://res.cloudinary.com/dht8hrgql/image/upload/
+
+Image upload: https://api.cloudinary.com/v1_1/dht8hrgql/image/upload
+
+Sprite generation: https://api.cloudinary.com/v1_1/dht8hrgql/image/sprite
+
+Erro que dá na primeira vez que gerar o build:
+* Where:
+        Script 
+        '/home/paulo/TCCProj/SyspushApp/platforms/android/phonegap-plugin-push/android-push.gradle' 
+        line: 38
+        
+        * What went wrong:
+        A problem occurred evaluating root project 'android'.
+        > Failed to apply plugin [class 
+        'com.google.gms.googleservices.GoogleServicesPlugin']
+            > For input string: "+"
+Como Corrigir:
+No arquivo: platform/android/project.properties
+nas linhas finais tem alguns services terminando em + e não na versão mais atual do serviço da Google. Substituir o + pelo número da versão mais atual. 
+Para checar a versão mais atual vá onde está instalado o SDK Tools do Android.
+Pasta: Android/Sdk/extras/google/m2repository/com/google/android/gms/...

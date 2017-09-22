@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Enviar Alerta
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page3">
+  <form [formGroup]="form" (ngSubmit)="sendAlert()" id="enviarAlerta-form1">
+    <ion-item id="enviarAlerta-select1">
+      <ion-label>
+        Tipo Alerta
+      </ion-label>
+      <ion-select formControlName="type_alert">
+        <ion-option value="1">Grave</ion-option>
+        <ion-option value="2">Médio</ion-option>
+        <ion-option value="3">Leve</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item id="enviarAlerta-input1">
+      <ion-label>
+        Título
+      </ion-label>
+      <ion-input formControlName="title_alert" type="text"></ion-input>
+    </ion-item>
+    <ion-item id="enviarAlerta-textarea1">
+      <ion-label>
+        Descrição
+      </ion-label>
+      <ion-textarea formControlName="last_description" type="text"></ion-textarea>
+    </ion-item>
+    <button type="submit" id="enviarAlerta-button5" ion-button color="positive" block>
+      Enviar Alerta
+    </button>
+  </form>
+  <p>Para anexar foto ao alerta:</p>
+  <button (click)="takePicture()" ion-button icon-only color="light" block icon-left style="text-align:left;">
+    <ion-icon name="camera"></ion-icon>
+    Tirar foto
+  </button>
+</ion-content>
