@@ -26,10 +26,10 @@ export class LoginPage {
   hasError: boolean;
   errorMessage: string;
   flag = true;// se falso aparece a informação
-  nome: string;
-  e_mail: string;
-  usuario: any;
-  
+  // nome: string;
+  e_mail: string = null;
+  // usuario: any;
+
   constructor(public navCtrl: NavController,
     public ap: AcessarProvider,
     public navParams: NavParams,
@@ -45,29 +45,27 @@ export class LoginPage {
       email: [''],
       password: ['']
     });
-
-    firebase.auth().onAuthStateChanged(function (logadoObs) {
-      if (logadoObs) {       
-       console.log("usuário logado no observable!");
-      } else {
-        console.log("Sem usuário logado no observable!");
-      }
-    });
-    this.verificaUser();
+    
+    this.e_mail = ap.verificaUser();
+    if (this.e_mail != null) {
+      this.flag = false;
+    }
+    
   }
-
-  verificaUser() {        
-        this.usuario = firebase.auth().currentUser;        
-        if (this.usuario) {
-          console.log("usuário logado!");
-          this.nome = this.usuario.displayName;
-          this.e_mail = this.usuario.email;
-          this.flag = false;
-          console.log("Nome: " + this.nome);
-        } else {
-          console.log("Sem usuário logado!");
-        }    
-  }
+ 
+  // verificaUser() {        
+  //       this.usuario = firebase.auth().currentUser;        
+  //       if (this.usuario) {
+  //         console.log("usuário logado!");
+  //         this.nome = this.usuario.displayName;
+  //         this.e_mail = this.usuario.email;
+  //         this.flag = false;
+  //         console.log("Nome: " + this.nome);
+  //       } else {
+  //         console.log("Sem usuário logado!");
+  //       } 
+  //       return this.e_mail   
+  // }
 
   sair() {
     firebase.auth().signOut().then(function () {

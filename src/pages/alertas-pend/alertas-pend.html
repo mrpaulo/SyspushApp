@@ -9,11 +9,14 @@
 </ion-header>
 <ion-content padding id="page12">
   <ion-list id="histRicoAlerta-list2">
-    <ion-item color="none" *ngFor="let alert of alerts | async " (click)="showOptions(alert.$key, alert.title_alert, alert.type_alert, alert.last_description)">
+    <ion-item color="none" *ngFor="let alert of alerts | async " (click)="showOptions(alert.$key, alert.title_alert, alert.type_alert, alert.date_alert, alert.last_description, alert.url_photo, alert.local_alert)">
       <h2>Título: {{alert.title_alert}}</h2>
       <p>Tipo Alerta: {{alert.type_alert}}</p>      
-      <p>Data e hora: </p>
+      <p>Data e hora: {{alert.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>
       <p>Descrição: {{alert.last_description}}</p> 
+      <p>Url Foto: {{alert.url_photo}}</p>
+      <p>Coordenadas: {{alert.local_alert}}</p>  
+
     </ion-item>
   </ion-list>
 </ion-content>

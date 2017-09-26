@@ -24,6 +24,7 @@ export class EnviarAlertaPage {
   photo: any;
   form: FormGroup;
   local: any;
+  dataAgora: any;
 
   // postTitle: any;
   // desc: any;
@@ -55,15 +56,19 @@ export class EnviarAlertaPage {
   }
 
   sendAlert() {
-    this.photo = this.ap.obterPhoto();
-    this.local = this.lp.obterLocal();
+    let photo = this.ap.obterPhoto();
+    let local = this.lp.obterLocal();
+    let dataAgora = new Date();
+    let dataString = dataAgora.toString();
+    console.log("Data Alerta: "+this.dataAgora);
     this.pendAlert = this.af.list('/pendAlertList');
     this.pendAlert.push({
+      date_alert: dataString,
       title_alert: this.form.value.title_alert,
       type_alert: this.form.value.type_alert,
       last_description: this.form.value.last_description,
-      local_alert: this.local,
-      url_photo: this.photo
+      local_alert: local,
+      url_photo: photo      
     })
 
     let prompt = this.alertCtrl.create({

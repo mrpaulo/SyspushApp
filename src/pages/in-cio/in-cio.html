@@ -14,8 +14,8 @@
       <ion-card>
       <ion-item class="item-thumbnail-left">
         <img [src]="'../../assets/' + alert.url_img">
-        <h2>{{alert.title_alert}}</h2>
-        <p>{{alert.date_hour}}</p>
+        <h2>Título: {{alert.title_alert}}</h2>
+        <p>Data e hora: {{alert.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>
 
         <div class="item item-body" id="alertaDetalhado-list-item-container7">
           <h2>Descrição:</h2>

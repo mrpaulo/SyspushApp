@@ -69,7 +69,7 @@ export class AlertasPendPage {
     });
     prompt.present();
   }
-  showOptions(alertId, title_alert, type_alert, last_description) {
+  showOptions(alertId, title_alert, type_alert, date_alert, last_description, url_photo, local_alert) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Escolha a opção:',
       buttons: [
@@ -82,7 +82,7 @@ export class AlertasPendPage {
         {
           text: 'Aprovar Alerta',
           handler: () => {
-            this.ap.aproveAlert(alertId, title_alert, type_alert, last_description);
+            this.ap.aproveAlert(alertId, title_alert, type_alert, date_alert, last_description, url_photo, local_alert);
             this.removeAlert(alertId);
           }
         },        

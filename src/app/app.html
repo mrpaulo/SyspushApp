@@ -14,7 +14,7 @@
       <ion-item color="none" menuClose="" on-click="goToHistRicoAlerta()" id="menu-list-item2">
         Histórico de Alertas
       </ion-item>
-      <ion-item color="none" menuClose="" on-click="goToEnviarAlerta()" id="menu-list-item3">
+      <ion-item [hidden]="!userCadastrado" color="none" menuClose="" on-click="goToEnviarAlerta()" id="menu-list-item3">
         Enviar Alerta
       </ion-item>
       <ion-item color="none" menuClose="" on-click="goToConfiguraEs()" id="menu-list-item4">
@@ -23,10 +23,10 @@
       <ion-item color="none" menuClose="" on-click="goToLogin()" id="menu-list-item5">
         Login
       </ion-item>
-      <ion-item color="none" menuClose="" on-click="goToUserList()" id="menu-list-item4">
+      <ion-item [hidden]="!userOperador" color="none" menuClose="" on-click="goToUserList()" id="menu-list-item4">
         Lista de Usuários
       </ion-item>
-      <ion-item color="none" menuClose="" on-click="goToAlertPend()" id="menu-list-item5">
+      <ion-item [hidden]="!userOperador" color="none" menuClose="" on-click="goToAlertPend()" id="menu-list-item5">
         Alertas Pendentes
       </ion-item>
       <ion-item color="none" menuClose="" on-click="goToSobre()" id="menu-list-item6">

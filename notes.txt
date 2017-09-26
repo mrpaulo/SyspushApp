@@ -105,3 +105,5 @@ No arquivo: platform/android/project.properties
 nas linhas finais tem alguns services terminando em + e não na versão mais atual do serviço da Google. Substituir o + pelo número da versão mais atual. 
 Para checar a versão mais atual vá onde está instalado o SDK Tools do Android.
 Pasta: Android/Sdk/extras/google/m2repository/com/google/android/gms/...
+
+Commit 2 = salvando data e hora alerta e url_img de alerta

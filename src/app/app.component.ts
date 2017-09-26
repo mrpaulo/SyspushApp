@@ -19,30 +19,35 @@ import { UserListaPage } from "../pages/user-lista/user-lista";
 import { AlertasPendPage } from "../pages/alertas-pend/alertas-pend";
 import { Push, PushObject, PushOptions } from "@ionic-native/push";
 import { HomePage } from "../pages/home/home";
+//import { AcessarProvider } from "../providers/acessar/acessar";
 
-@Component({
+  @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
-  rootPage:any = InCioPage;
+  rootPage: any = InCioPage;
+  userCadastrado = false;
+  userOperador = false;
+  tipo: string;
 
   constructor(
-    platform: Platform, 
-    statusBar: StatusBar, 
+    platform: Platform,
+    statusBar: StatusBar,
     splashScreen: SplashScreen,
-    public push: Push, 
+    public push: Push,
     public alertCtrl: AlertController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.         
       statusBar.styleDefault();
-      splashScreen.hide(); 
-      this.initPushNotification();     
+      splashScreen.hide();
+      this.initPushNotification();
+      this.tipoUser();
     });
   }
   //inicio init push
-  initPushNotification() {   
+  initPushNotification() {
     const options: PushOptions = {
       android: {
         senderID: '105371248958'
@@ -92,53 +97,65 @@ export class MyApp {
     pushObject.on('error').subscribe(error => alert('Error with Push plugin' + error));
   }
   //fim init push
-
-  goToAlertaDetalhado(params) {
-    if (!params) params = {};
-    this.navCtrl.setRoot(AlertaDetalhadoPage);
+  
+  tipoUser() {
+    let tipo = "2";
+    if (tipo == "1") {
+      this.userCadastrado = true;
+    }
+    if (tipo == "2") {
+      this.userCadastrado = true;
+      this.userOperador = true;
+    }
   }
-  goToFotoDoAlerta(params) {
-    if (!params) params = {};
-    this.navCtrl.setRoot(FotoDoAlertaPage);
-  }
-  goToMapa(params) {
-    if (!params) params = {};
-    this.navCtrl.setRoot(MapaPage);
-  }
-  goToEnviarAlerta(params) {
-    if (!params) params = {};
-    this.navCtrl.setRoot(EnviarAlertaPage);
-  }
-  goToHistRicoAlerta(params) {
-    if (!params) params = {};
-    this.navCtrl.setRoot(HistRicoAlertaPage);
-  }
-  goToConfiguraEs(params) {
-    if (!params) params = {};
-    this.navCtrl.setRoot(ConfiguraEsPage);
-  }
-  goToLogin(params) {
-    if (!params) params = {};
-    this.navCtrl.setRoot(LoginPage);
-  }
-  goToCadastro(params) {
-    if (!params) params = {};
-    this.navCtrl.setRoot(CadastroPage);
-  }
-  goToSobre(params) {
-    if (!params) params = {};
-    this.navCtrl.setRoot(SobrePage);
-  }
-  goToInCio(params) {
-    if (!params) params = {};
-    this.navCtrl.setRoot(InCioPage);
-  }
-  goToAlertPend(params) {
-    if (!params) params = {};
-    this.navCtrl.setRoot(AlertasPendPage);
-  }
-  goToUserList(params) {
-    if (!params) params = {};
-    this.navCtrl.setRoot(UserListaPage);
-  }
+  
+goToAlertaDetalhado(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(AlertaDetalhadoPage);
+}
+goToFotoDoAlerta(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(FotoDoAlertaPage);
+}
+goToMapa(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(MapaPage);
+}
+goToEnviarAlerta(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(EnviarAlertaPage);
+}
+goToHistRicoAlerta(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(HistRicoAlertaPage);
+}
+goToConfiguraEs(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(ConfiguraEsPage);
+}
+goToLogin(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(LoginPage);
+}
+goToCadastro(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(CadastroPage);
+}
+goToSobre(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(SobrePage);
+}
+goToInCio(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(InCioPage);
+}
+goToAlertPend(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(AlertasPendPage);
+}
+goToUserList(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(UserListaPage);
+}  
+  
 }
