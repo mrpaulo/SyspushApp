@@ -40,27 +40,6 @@ const firebaseConfig = {
   messagingSenderId: '105371248958'
 };
 
-*Comandos GIT
-{
-sudo git init
-Sudo git add .
-Sudo git commit -m “comentario”
-sudo git remote add origin https://github.com/mrpaulo/SistemaDeAlerta.git
-sudo git push origin master
-
-Repeti sempre
-Sudo git add .
-Sudo git commit -m “comentario”
-sudo git push origin master
-}
-
-*Emulador
-ionic cordova run android -lcs -- -d  
-ionic cordova run android -lcs --address localhost
-
-*Build
-ionic cordova build android
-
 *Cloudinary
 Cloud name:	
 dht8hrgql
@@ -106,4 +85,26 @@ nas linhas finais tem alguns services terminando em + e não na versão mais atu
 Para checar a versão mais atual vá onde está instalado o SDK Tools do Android.
 Pasta: Android/Sdk/extras/google/m2repository/com/google/android/gms/...
 
+*Comandos GIT
+{
+sudo git init
+Sudo git add .
+Sudo git commit -m “comentario”
+sudo git remote add origin https://github.com/mrpaulo/SistemaDeAlerta.git
+sudo git push origin master
+
+Repeti sempre
+Sudo git add .
+Sudo git commit -m “comentario”
+sudo git push origin master
+}
+
+*Emulador
+ionic cordova run android -lcs -- -d  
+ionic cordova run android -lcs --address localhost
+
+*Build
+ionic cordova build android
+
 Commit 2 = salvando data e hora alerta e url_img de alerta
+Commit 3 = Novo item editar alertas, retornando tipo no login

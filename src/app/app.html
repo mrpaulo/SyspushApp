@@ -24,10 +24,13 @@
         Login
       </ion-item>
       <ion-item [hidden]="!userOperador" color="none" menuClose="" on-click="goToUserList()" id="menu-list-item4">
-        Lista de Usuários
+        Editar Usuários
       </ion-item>
       <ion-item [hidden]="!userOperador" color="none" menuClose="" on-click="goToAlertPend()" id="menu-list-item5">
         Alertas Pendentes
+      </ion-item>
+      <ion-item [hidden]="!userOperador" color="none" menuClose="" on-click="goToEditarAlertas()" id="menu-list-item6">
+        Editar Alertas
       </ion-item>
       <ion-item color="none" menuClose="" on-click="goToSobre()" id="menu-list-item6">
         Sobre

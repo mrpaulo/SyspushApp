@@ -14,6 +14,9 @@ import { AcessarProvider } from "../../providers/acessar/acessar";
   ]
 })
 export class InCioPage {
+  tipoUser: void;
+
+  users: FirebaseListObservable<any>;
   public alerts: FirebaseListObservable<any>;
   public retorno: any;
 
@@ -22,10 +25,16 @@ export class InCioPage {
     public ap: AcessarProvider    
   ) {
     this.alerts = ap.ultimoAlerta();
-    this.retorno = ap.retornaTipo();
-    console.log("vindo do ap:"+ this.retorno);
-    let data = new Date();
-    console.log("Data:"+ data);
+
+    let verifica = ap.verificaUser();
+    if(verifica){
+      let tipo = ap.retornaTipo();
+      console.log("Tipo User: " + tipo);
+    }
+    // this.users = ap.listarUser();
+    // this.tipoUser = ap.tipoUser(this.users)
+    // console.log("Tipo User: "+ this.tipoUser);   
+    
   }  
 
   goToAlertaDetalhado(params1) {

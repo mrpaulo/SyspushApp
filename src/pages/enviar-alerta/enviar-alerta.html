@@ -37,6 +37,9 @@
     </button>
   </form>
   <p>Para anexar foto ao alerta:</p>
+  <ion-item>
+    <img src="{{ base64Image }}" alt="" />    
+  </ion-item>
   <button (click)="takePicture()" ion-button icon-only color="light" block icon-left style="text-align:left;">
     <ion-icon name="camera"></ion-icon>
     Tirar foto

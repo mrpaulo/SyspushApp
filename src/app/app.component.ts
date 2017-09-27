@@ -19,6 +19,7 @@ import { UserListaPage } from "../pages/user-lista/user-lista";
 import { AlertasPendPage } from "../pages/alertas-pend/alertas-pend";
 import { Push, PushObject, PushOptions } from "@ionic-native/push";
 import { HomePage } from "../pages/home/home";
+import { EditarAlertasPage } from "../pages/editar-alertas/editar-alertas";
 //import { AcessarProvider } from "../providers/acessar/acessar";
 
   @Component({
@@ -156,6 +157,10 @@ goToAlertPend(params) {
 goToUserList(params) {
   if (!params) params = {};
   this.navCtrl.setRoot(UserListaPage);
+} 
+goToEditarAlertas(params) {
+  if (!params) params = {};
+  this.navCtrl.setRoot(EditarAlertasPage);
 }  
   
 }

@@ -8,6 +8,8 @@ import { InCioPage } from "../in-cio/in-cio";
 import { Camera /*CameraOptions*/ } from '@ionic-native/camera';
 //import { File } from '@ionic-native/file';
 //import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { FirebaseApp } from 'angularfire2';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'page-enviar-alerta',
@@ -19,12 +21,13 @@ import { Camera /*CameraOptions*/ } from '@ionic-native/camera';
   ]
 })
 export class EnviarAlertaPage {
+  url: string;
   //apiEndPoint: any = 'https://api.cloudinary.com/v1_1/dht8hrgql/image/upload';//'https://photocloudapp.herokuapp.com/api/v1/post/upload';
   pendAlert: FirebaseListObservable<any>;
   photo: any;
   form: FormGroup;
   local: any;
-  dataAgora: any;
+  dataString: string;
 
   // postTitle: any;
   // desc: any;
@@ -45,6 +48,7 @@ export class EnviarAlertaPage {
     public alertCtrl: AlertController,
     private camera: Camera,
     private loadingCtrl: LoadingController,
+    private fb: FirebaseApp
     //public transfer: FileTransferObject,
     //public file: File
   ) {
@@ -56,14 +60,14 @@ export class EnviarAlertaPage {
   }
 
   sendAlert() {
-    let photo = this.ap.obterPhoto();
+    let photo = this.obterPhoto();
     let local = this.lp.obterLocal();
     let dataAgora = new Date();
-    let dataString = dataAgora.toString();
-    console.log("Data Alerta: "+this.dataAgora);
+    this.dataString = dataAgora.toString();
+    console.log("Data Alerta: "+dataAgora);
     this.pendAlert = this.af.list('/pendAlertList');
     this.pendAlert.push({
-      date_alert: dataString,
+      date_alert: this.dataString,
       title_alert: this.form.value.title_alert,
       type_alert: this.form.value.type_alert,
       last_description: this.form.value.last_description,
@@ -93,6 +97,30 @@ export class EnviarAlertaPage {
       console.log(err);
     });
   }
+
+  //solução felipe
+  public obterPhoto() {       
+      // let storageRef = this.fb.storage().ref();
+      // let basePath = '/fotos/' + this.dataString;
+      // let fullPath = basePath + '/' + this.form.value.title_alert + '.png';
+      // let uploadTask = storageRef.child(fullPath).putString(item.fileToUpload, 'base64');
+
+      // uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      // (snapshot) => {
+      //   var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      //   console.log(progress + "% done");
+      // },
+      // (error) => {
+      //   console.error(error);
+      // },
+      // () => {
+      //   this.url = uploadTask.snapshot.downloadURL;
+      //   this.save(contact);
+      // });    
+      return "http://res.cloudinary.com/dht8hrgql/image/upload/v1499814594/ImagensAlertas/3.jpg"
+  }
+  //fim solução felipe
+
 
   //js puro
   cloudName: any = 'dht8hrgql';

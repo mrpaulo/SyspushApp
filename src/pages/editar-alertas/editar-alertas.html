@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    <ion-title>
+      Editar Alertas
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list id="histRicoAlerta-list2">
+    <ion-item color="none" *ngFor="let alert of alerts | async " (click)="showOptions(alert.$key, alert.title_alert, alert.type_alert, alert.date_alert, alert.last_description, alert.url_photo, alert.local_alert, alert.penultimate_description, alert.antepenultimate_description)">
+      <ion-thumbnail item-left>
+        <img [src]="'../../assets/' + alert.url_img">
+      </ion-thumbnail>
+      <h2>Título: {{alert.title_alert}}</h2>
+      <p>Tipo Alerta: {{alert.type_alert}}</p>
+      <p>Data e hora: {{alert.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>
+      <p>Ultima Descrição: {{alert.last_description}}</p>
+      <p>Penultima Descrição: {{alert.penultimate_description}}</p>
+      <p>Antepenultima Descrição: {{alert.antepenultimate_description}}</p>
+      <p>Url Foto: {{alert.url_photo}}</p>
+      <p>Coordenadas: {{alert.local_alert}}</p>
+
+    </ion-item>
+  </ion-list>
+</ion-content>

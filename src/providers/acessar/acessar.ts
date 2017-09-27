@@ -9,6 +9,8 @@ import * as firebase from 'firebase/app';
 
 @Injectable()
 export class AcessarProvider {
+  logEmail: string;
+  tipo: any;
   userTipo: FirebaseListObservable<any>;
   alerts: FirebaseListObservable<any>;
   oneAlert: FirebaseObjectObservable<any>;
@@ -29,7 +31,7 @@ export class AcessarProvider {
   ) {
     //this.alerts = af.list('/alertList');
   }
-  
+
   aproveAlert(alertId, title_alert, type_alert, date_alert, last_description, url_photo, local_alert) {
     this.alerts = this.af.list('/alertList');
     if (type_alert == "1") { this.url_img = "img/thumbnailVermelho.jpg"; } if (type_alert == "2") { this.url_img = "img/thumbnailAmarelo.jpg"; } if (type_alert == "3") { this.url_img = "img/thumbnailVerde.jpg"; }
@@ -55,11 +57,12 @@ export class AcessarProvider {
   }
 
   listarUser() {
-    return this.users = this.af.list('/users', {
+    this.users = this.af.list('/users', {
       query: {
         limitToLast: 30
       }
     });
+    return this.users
   }
 
   especificoAlerta(alertID) {
@@ -86,47 +89,56 @@ export class AcessarProvider {
 
   }
 
-  obterPhoto() {
-    this.urlPhoto = "http://res.cloudinary.com/dht8hrgql/image/upload/v1499814594/ImagensAlertas/3.jpg";
-    return this.urlPhoto;
-  }
+  // obterPhoto() {
+  //   this.urlPhoto = "http://res.cloudinary.com/dht8hrgql/image/upload/v1499814594/ImagensAlertas/3.jpg";
+  //   return this.urlPhoto;
+  // }
 
   verificaUser() {
-    // firebase.auth().onAuthStateChanged(function (logadoObs) {
-    //   if (logadoObs) {
-    //     console.log("usuário logado no observable!");
-    //   } else {
-    //     console.log("Sem usuário logado no observable!");
-    //   }
-    // });      
+    firebase.auth().onAuthStateChanged(function (logadoObs) {
+      if (logadoObs) {
+        console.log("usuário logado no observable!");
+        //console.log("email observable: " + logadoObs.email);
+        // this.usuario = logadoObs;        
+        //this.e_mail = logadoObs.email;
+      } else {
+        console.log("Sem usuário logado no observable!");
+      }
+    });
+    //this.tipoUser(this.usuario);      
     this.usuario = firebase.auth().currentUser;
     if (this.usuario) {
       console.log("usuário logado!");
-      this.nome = this.usuario.displayName;
+      this.tipoUser(this.usuario);
       this.e_mail = this.usuario.email;
-      console.log("Nome: " + this.nome);
     } else {
       console.log("Sem usuário logado!");
     }
     return this.e_mail
   }
-  retornaTipo() {
 
-    let logEmail = this.verificaUser();
-    this.userTipo = this.listarUser();
-    // this.userTipo.subscribe(snapshot => {
-    //   this.userTipo = snapshot.val();
-    // }); 
-    // let emailsUser = this.userTipo.email;
-    console.log("Email logado" + logEmail);
-    console.log("lista users" + this.userTipo);
-    // if(logEmail==emailsUser){
-    //   let tipo = this.userTipo?.type_user;
-    // }
-    // console.log("Email logado" + this.userTipo?.type_user);
+  tipoUser(item: any) {
+    this.logEmail = item.email;
+    this.af.list('/users', { preserveSnapshot: true })
+      .subscribe(snapshots => {
+        snapshots.forEach(snapshot => {
+          if (snapshot.val().email == this.logEmail) {
+            this.tipo = snapshot.val().type_user;
+            // console.log("Name: " + this.tipo);
+            // console.log("type: " + snapshot.val().type_user);
+            // console.log("email: " + snapshot.val().email);
+          }
+          // console.log("type: " + snapshot.val().type_user);
+          // console.log("email: " + snapshot.val().email);
+          // console.log("tipao: " + this.tipo);
+          // console.log("emailLogado: " + this.logEmail);
+        });
+      })
+    return this.tipo
+  }
 
-    let tipo = "1"
-    return tipo
+  retornaTipo(){  
+    return this.tipo
   }
 
 

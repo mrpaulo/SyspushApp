@@ -26,6 +26,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { UserListaPage } from "../pages/user-lista/user-lista";
 import { AlertasPendPage } from "../pages/alertas-pend/alertas-pend";
+import { EditarAlertasPage } from "../pages/editar-alertas/editar-alertas";
 import { Push } from '@ionic-native/push';
 
 const firebaseConfig = {
@@ -52,7 +53,8 @@ const firebaseConfig = {
     MapaPage,
     CadastroPage,
     UserListaPage,
-    AlertasPendPage   
+    AlertasPendPage,
+    EditarAlertasPage   
   ],
   imports: [
     BrowserModule,
@@ -75,7 +77,8 @@ const firebaseConfig = {
     MapaPage,
     CadastroPage,
     UserListaPage,
-    AlertasPendPage
+    AlertasPendPage,
+    EditarAlertasPage
   ],
   providers: [
     StatusBar,

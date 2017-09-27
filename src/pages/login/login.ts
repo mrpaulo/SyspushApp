@@ -21,6 +21,8 @@ import * as firebase from 'firebase/app';
   ]
 })
 export class LoginPage {
+  users: FirebaseListObservable<any>;
+  tipoUser: any;
   user: FirebaseListObservable<any>;
   form: FormGroup;
   hasError: boolean;
@@ -49,8 +51,12 @@ export class LoginPage {
     this.e_mail = ap.verificaUser();
     if (this.e_mail != null) {
       this.flag = false;
+      let tipo = ap.retornaTipo();
+      console.log("Tipo User: " + tipo);
     }
-    
+    //this.users = ap.listarUser();
+    //this.tipoUser = ap.retornaTipo(this.users)
+    //console.log("Tipo User: "+ this.tipoUser);    
   }
  
   // verificaUser() {        
