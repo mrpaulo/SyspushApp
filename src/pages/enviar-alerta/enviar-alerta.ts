@@ -98,7 +98,7 @@ export class EnviarAlertaPage {
     });
   }
 
-  //solução felipe
+  //solução com o storage do FireBase (em andamento...)
   public obterPhoto() {       
       // let storageRef = this.fb.storage().ref();
       // let basePath = '/fotos/' + this.dataString;
@@ -119,10 +119,9 @@ export class EnviarAlertaPage {
       // });    
       return "http://res.cloudinary.com/dht8hrgql/image/upload/v1499814594/ImagensAlertas/3.jpg"
   }
-  //fim solução felipe
+  //fim solução 
 
-
-  //js puro
+  //js puro - Não funcionou
   cloudName: any = 'dht8hrgql';
   unsignedUploadPreset: any = 'zq35ikx2';
   // *********** Upload file to Cloudinary ******************** //

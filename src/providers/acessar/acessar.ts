@@ -1,26 +1,18 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-
-//import { Component } from '@angular/core';
 import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-//import * as _ from 'lodash';
 import * as firebase from 'firebase/app';
 
 @Injectable()
 export class AcessarProvider {
   logEmail: string;
-  tipo: any;
-  userTipo: FirebaseListObservable<any>;
+  tipo: any;  
   alerts: FirebaseListObservable<any>;
   oneAlert: FirebaseObjectObservable<any>;
-  urlPhoto: any;
-  users: FirebaseListObservable<any>;
-
-  nome: string;
+  users: FirebaseListObservable<any>;  
   e_mail: string;
   usuario: any;
-
   url_img: string;
 
   constructor(
@@ -29,7 +21,7 @@ export class AcessarProvider {
     public af: AngularFireDatabase,
     public actionSheetCtrl: ActionSheetController
   ) {
-    //this.alerts = af.list('/alertList');
+    
   }
 
   aproveAlert(alertId, title_alert, type_alert, date_alert, last_description, url_photo, local_alert) {
@@ -42,7 +34,7 @@ export class AcessarProvider {
       penultimate_description: "",
       antepenultimate_description: "",
       date_alert: date_alert,
-      url_img: this.url_img,//"img/thumbnailVermelho.jpg",
+      url_img: this.url_img,
       url_photo: url_photo,
       local_alert: local_alert
     });
@@ -67,9 +59,7 @@ export class AcessarProvider {
 
   especificoAlerta(alertID) {
     this.oneAlert = this.af.object('/alertList/' + alertID, { preserveSnapshot: true });
-
-    return this.oneAlert
-    //return this.oneAlert = this.af.child('/alertList').child(alertID);
+    return this.oneAlert    
   }
 
   ultimoAlerta() {
@@ -86,13 +76,7 @@ export class AcessarProvider {
         limitToLast: 30
       }
     });
-
   }
-
-  // obterPhoto() {
-  //   this.urlPhoto = "http://res.cloudinary.com/dht8hrgql/image/upload/v1499814594/ImagensAlertas/3.jpg";
-  //   return this.urlPhoto;
-  // }
 
   verificaUser() {
     firebase.auth().onAuthStateChanged(function (logadoObs) {
@@ -140,46 +124,4 @@ export class AcessarProvider {
   retornaTipo(){  
     return this.tipo
   }
-
-
-  addSong() {
-    let prompt = this.alertCtrl.create({
-      title: 'Song Name',
-      message: "Enter a name for this new song you're so keen on adding",
-      inputs: [
-        {
-          name: 'title_alert',
-          placeholder: 'Title',
-
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Save',
-          handler: data => {
-            this.alerts.push({
-              id: 1,
-              type_alert: 1,
-              title_alert: data.title_alert,
-              last_description: "Moradores deixar suas casas",
-              penultimate_description: "Penultimo",
-              antepenultimate_description: "Ante Penultimo",
-              date_hour: "10/05/2017 - 20:00 h",
-              url_img: "img/thumbnailVermelho.jpg",
-              url_photo: "http://res.cloudinary.com/dht8hrgql/image/upload/v1499814594/ImagensAlertas/3.jpg",
-              local_alert: "-29.639410, -50.787776"
-            });
-          }
-        }
-      ]
-    });
-    prompt.present();
-  }
-
 }

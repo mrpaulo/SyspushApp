@@ -2,8 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-//import { HomePage } from '../pages/home/home';
+import { Push, PushObject, PushOptions } from "@ionic-native/push";
 
 import { AlertaDetalhadoPage } from '../pages/alerta-detalhado/alerta-detalhado';
 import { FotoDoAlertaPage } from '../pages/foto-do-alerta/foto-do-alerta';
@@ -17,12 +16,11 @@ import { SobrePage } from '../pages/sobre/sobre';
 import { InCioPage } from '../pages/in-cio/in-cio';
 import { UserListaPage } from "../pages/user-lista/user-lista";
 import { AlertasPendPage } from "../pages/alertas-pend/alertas-pend";
-import { Push, PushObject, PushOptions } from "@ionic-native/push";
 import { HomePage } from "../pages/home/home";
 import { EditarAlertasPage } from "../pages/editar-alertas/editar-alertas";
 //import { AcessarProvider } from "../providers/acessar/acessar";
 
-  @Component({
+@Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
@@ -47,7 +45,7 @@ export class MyApp {
       this.tipoUser();
     });
   }
-  //inicio init push
+  //inicio init push - ainda não funciona
   initPushNotification() {
     const options: PushOptions = {
       android: {
@@ -96,10 +94,9 @@ export class MyApp {
     });
 
     pushObject.on('error').subscribe(error => alert('Error with Push plugin' + error));
-  }
-  //fim init push
-  
-  tipoUser() {
+  }  //fim init push
+
+  tipoUser() {// preciso retornar o tipo aqui para mostrar ou não itens do menu, a informacao esta sendo gerado no arquivo acessar.ts 
     let tipo = "2";
     if (tipo == "1") {
       this.userCadastrado = true;
@@ -109,58 +106,58 @@ export class MyApp {
       this.userOperador = true;
     }
   }
-  
-goToAlertaDetalhado(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(AlertaDetalhadoPage);
-}
-goToFotoDoAlerta(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(FotoDoAlertaPage);
-}
-goToMapa(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(MapaPage);
-}
-goToEnviarAlerta(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(EnviarAlertaPage);
-}
-goToHistRicoAlerta(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(HistRicoAlertaPage);
-}
-goToConfiguraEs(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(ConfiguraEsPage);
-}
-goToLogin(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(LoginPage);
-}
-goToCadastro(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(CadastroPage);
-}
-goToSobre(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(SobrePage);
-}
-goToInCio(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(InCioPage);
-}
-goToAlertPend(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(AlertasPendPage);
-}
-goToUserList(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(UserListaPage);
-} 
-goToEditarAlertas(params) {
-  if (!params) params = {};
-  this.navCtrl.setRoot(EditarAlertasPage);
-}  
-  
+
+  goToAlertaDetalhado(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(AlertaDetalhadoPage);
+  }
+  goToFotoDoAlerta(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(FotoDoAlertaPage);
+  }
+  goToMapa(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(MapaPage);
+  }
+  goToEnviarAlerta(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(EnviarAlertaPage);
+  }
+  goToHistRicoAlerta(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(HistRicoAlertaPage);
+  }
+  goToConfiguraEs(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(ConfiguraEsPage);
+  }
+  goToLogin(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(LoginPage);
+  }
+  goToCadastro(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(CadastroPage);
+  }
+  goToSobre(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(SobrePage);
+  }
+  goToInCio(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(InCioPage);
+  }
+  goToAlertPend(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(AlertasPendPage);
+  }
+  goToUserList(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(UserListaPage);
+  }
+  goToEditarAlertas(params) {
+    if (!params) params = {};
+    this.navCtrl.setRoot(EditarAlertasPage);
+  }
+
 }

@@ -1,6 +1,6 @@
 {
   "name": "SyspushApp",
-  "app_id": "",
+  "app_id": "0308e312",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

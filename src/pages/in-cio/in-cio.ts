@@ -30,11 +30,7 @@ export class InCioPage {
     if(verifica){
       let tipo = ap.retornaTipo();
       console.log("Tipo User: " + tipo);
-    }
-    // this.users = ap.listarUser();
-    // this.tipoUser = ap.tipoUser(this.users)
-    // console.log("Tipo User: "+ this.tipoUser);   
-    
+    }    
   }  
 
   goToAlertaDetalhado(params1) {

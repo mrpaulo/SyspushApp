@@ -95,7 +95,7 @@ sudo git push origin master
 
 Repeti sempre
 Sudo git add .
-Sudo git commit -m “comentario”
+Sudo git commit -m "Commit N"
 sudo git push origin master
 }
 
@@ -107,4 +107,4 @@ ionic cordova run android -lcs --address localhost
 ionic cordova build android
 
 Commit 2 = salvando data e hora alerta e url_img de alerta
-Commit 3 = Novo item editar alertas, retornando tipo no login
+Commit 3 = Novo item editar alertas, retornando tipo no login, mexido enviar alerta foto
