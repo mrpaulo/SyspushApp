@@ -35,7 +35,9 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     public push: Push,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    //public ap: AcessarProvider
+  ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.         
@@ -97,7 +99,7 @@ export class MyApp {
   }  //fim init push
 
   tipoUser() {// preciso retornar o tipo aqui para mostrar ou não itens do menu, a informacao esta sendo gerado no arquivo acessar.ts 
-    let tipo = "2";
+    let tipo = "2";//ap.retornaTipo();
     if (tipo == "1") {
       this.userCadastrado = true;
     }

@@ -108,3 +108,4 @@ ionic cordova build android
 
 Commit 2 = salvando data e hora alerta e url_img de alerta
 Commit 3 = Novo item editar alertas, retornando tipo no login, mexido enviar alerta foto
+Commit 4 = arrumado codificação
