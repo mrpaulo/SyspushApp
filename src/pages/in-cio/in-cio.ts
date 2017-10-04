@@ -26,11 +26,12 @@ export class InCioPage {
   ) {
     this.alerts = ap.ultimoAlerta();
 
-    let verifica = ap.verificaUser();
-    if(verifica){
-      let tipo = ap.retornaTipo();
-      console.log("Tipo User: " + tipo);
-    }    
+    let verifica = ap.retornaTipo();
+    console.log("Tipo User: " + verifica);
+    // if(verifica){
+    //   let tipo = ap.retornaTipo();
+    //   console.log("Tipo User: " + tipo);
+    // }    
   }  
 
   goToAlertaDetalhado(params1) {

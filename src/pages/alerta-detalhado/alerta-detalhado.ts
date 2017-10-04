@@ -27,8 +27,7 @@ export class AlertaDetalhadoPage {
       this.oneAlert = ap.especificoAlerta(this.idAlert);
       this.oneAlert.subscribe(snapshot => {
         this.oneAlert = snapshot.val();
-      }); 
-      console.log("Key: " + this.idAlert);            
+      });                
     }
   goToFotoDoAlerta(params){
     if (!params) params = {};

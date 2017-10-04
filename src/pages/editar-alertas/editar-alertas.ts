@@ -23,13 +23,12 @@ export class EditarAlertasPage {
     public ap: AcessarProvider,
     public actionSheetCtrl: ActionSheetController
   ) {
-    this.alerts = ap.listarAlertas();
-    console.log("Lista: " + this.alerts)
+    this.alerts = ap.listarAlertas();    
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AlertasPendPage');
-  }
+  // ionViewDidLoad() {
+  //   console.log('ionViewDidLoad AlertasPendPage');
+  // }
   removeAlert(alertId: string) {
     let prompt = this.alertCtrl.create({
       title: "Você tem certeza que deseja apagar este Alerta?",
@@ -51,18 +50,14 @@ export class EditarAlertasPage {
     prompt.present();
   }
 
-  updateAlert(alertId, title_alert, type_alert, last_description) {
+  updateAlert(alertId, title_alert, last_description) {
     let prompt = this.alertCtrl.create({
       message: "Editar Alerta",
       inputs: [
         {
           name: 'title_alert',
           value: title_alert
-        },
-        {
-          name: 'type_alert',
-          value: type_alert
-        },
+        },        
         {
           name: 'last_description',
           value: last_description
@@ -78,12 +73,10 @@ export class EditarAlertasPage {
         {
           text: 'Save',
           handler: data => {
-            if (data.type_alert == "1") { this.url_img = "img/thumbnailVermelho.jpg"; } if (data.type_alert == "2") { this.url_img = "img/thumbnailAmarelo.jpg"; } if (data.type_alert == "3") { this.url_img = "img/thumbnailVerde.jpg"; };
+            
             this.alerts.update(alertId, {
               title_alert: data.title_alert,
-              type_alert: data.type_alert,
-              last_description: data.last_description,
-              url_img: this.url_img
+              last_description: data.last_description
             });
           }
         }
@@ -129,6 +122,48 @@ export class EditarAlertasPage {
     prompt.present();
   }
 
+  updateType(alertId, type_alert){
+    let prompt = this.alertCtrl.create({
+      message: "Editar tipo de Alerta: ",
+      inputs: [        
+        {
+          label: "Grave (Vermelho)",
+          value: '1',
+          type: 'radio'                   
+        },
+        {
+          label: "Médio (Amarelo)",
+          value: '2',
+          type: 'radio'         
+        },
+        {
+          label: "Leve (Verde)",
+          value: '3',
+          type: 'radio'         
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            if (data == "1") { this.url_img = "img/thumbnailVermelho.jpg"; } if (data == "2") { this.url_img = "img/thumbnailAmarelo.jpg"; } if (data == "3") { this.url_img = "img/thumbnailVerde.jpg"; };
+            this.alerts.update(alertId, {              
+              type_alert: data,
+              url_img: this.url_img
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
   showOptions(alertId, title_alert, type_alert, date_alert, last_description, url_photo, local_alert, penultimate_description, antepenultimate_description) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Escolha a opção:',
@@ -136,7 +171,13 @@ export class EditarAlertasPage {
         {
           text: 'Editar Alerta',
           handler: () => {
-            this.updateAlert(alertId, title_alert, type_alert, last_description);
+            this.updateAlert(alertId, title_alert, last_description);
+          }
+        },
+        {
+          text: 'Mudar Tipo Alerta',
+          handler: () => {
+            this.updateType(alertId, type_alert);
           }
         },
         {

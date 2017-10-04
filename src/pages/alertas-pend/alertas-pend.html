@@ -8,15 +8,23 @@
 
 </ion-header>
 <ion-content padding id="page12">
-  <ion-list id="histRicoAlerta-list2">
+  <ion-list>
     <ion-item color="none" *ngFor="let alert of alerts | async " (click)="showOptions(alert.$key, alert.title_alert, alert.type_alert, alert.date_alert, alert.last_description, alert.url_photo, alert.local_alert)">
+      <ion-thumbnail item-left>
+        <img style="width: 80px; height: 80px;"[src]="alert.url_photo">
+      </ion-thumbnail>
       <h2>Título: {{alert.title_alert}}</h2>
-      <p>Tipo Alerta: {{alert.type_alert}}</p>      
+      <p *ngIf="alert.type_alert=='1'">Tipo Alerta: Grave (Vermelho)</p>
+      <p *ngIf="alert.type_alert=='2'">Tipo Alerta: Médio (Amarelo)</p>
+      <p *ngIf="alert.type_alert=='3'">Tipo Alerta: Leve (Verde)</p>            
       <p>Data e hora: {{alert.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>
-      <p>Descrição: {{alert.last_description}}</p> 
-      <p>Url Foto: {{alert.url_photo}}</p>
-      <p>Coordenadas: {{alert.local_alert}}</p>  
-
+      <p>Descrição: {{alert.last_description}}</p>
+      <p>Autor: {{alert.autor}}</p>       
+      <!-- <p>Url Foto: {{alert.url_photo}}</p>
+      <p>Coordenadas: {{alert.local_alert}}</p>   -->
+      
     </ion-item>
+    <!-- <p><a (click)="goToFotoDoAlerta(alert.$key)">Ver foto maior</a></p>
+    <p><a (click)="goToMapa(alert.$key)">Ver no mapa</a></p> -->
   </ion-list>
 </ion-content>

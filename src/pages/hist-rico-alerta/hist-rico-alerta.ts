@@ -20,8 +20,7 @@ export class HistRicoAlertaPage {
     public navCtrl: NavController, 
     public ap: AcessarProvider    
   ) {
-    this.alerts = ap.listarAlertas();
-    console.log("Lista: " + this.alerts)   
+    this.alerts = ap.listarAlertas();    
   }
 
   goToAlertaDetalhado(params) {

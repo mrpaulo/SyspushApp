@@ -15,7 +15,9 @@
         <img [src]="'../../assets/' + alert.url_img">
       </ion-thumbnail>
       <h2>Título: {{alert.title_alert}}</h2>
-      <p>Tipo Alerta: {{alert.type_alert}}</p>
+      <p *ngIf="alert.type_alert=='1'">Tipo Alerta: Grave (Vermelho)</p>
+      <p *ngIf="alert.type_alert=='2'">Tipo Alerta: Médio (Amarelo)</p>
+      <p *ngIf="alert.type_alert=='3'">Tipo Alerta: Leve (Verde)</p>     
       <p>Data e hora: {{alert.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>
       <p>Ultima Descrição: {{alert.last_description}}</p>
       <p>Penultima Descrição: {{alert.penultimate_description}}</p>

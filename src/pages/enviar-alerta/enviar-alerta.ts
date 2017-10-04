@@ -8,8 +8,8 @@ import { InCioPage } from "../in-cio/in-cio";
 import { Camera /*CameraOptions*/ } from '@ionic-native/camera';
 //import { File } from '@ionic-native/file';
 //import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
-import { FirebaseApp } from 'angularfire2';
-import * as firebase from 'firebase';
+//import { FirebaseApp } from 'angularfire2';
+//import * as firebase from 'firebase';
 
 @Component({
   selector: 'page-enviar-alerta',
@@ -47,8 +47,8 @@ export class EnviarAlertaPage {
     private formBuilder: FormBuilder,
     public alertCtrl: AlertController,
     private camera: Camera,
-    private loadingCtrl: LoadingController,
-    private fb: FirebaseApp
+    private loadingCtrl: LoadingController,    
+    //private fb: FirebaseApp
     //public transfer: FileTransferObject,
     //public file: File
   ) {
@@ -60,6 +60,7 @@ export class EnviarAlertaPage {
   }
 
   sendAlert() {
+    let autor = this.ap.verificaUser();
     let photo = this.obterPhoto();
     let local = this.lp.obterLocal();
     let dataAgora = new Date();
@@ -72,7 +73,8 @@ export class EnviarAlertaPage {
       type_alert: this.form.value.type_alert,
       last_description: this.form.value.last_description,
       local_alert: local,
-      url_photo: photo      
+      url_photo: photo,
+      autor: autor      
     })
 
     let prompt = this.alertCtrl.create({

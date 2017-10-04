@@ -109,3 +109,15 @@ ionic cordova build android
 Commit 2 = salvando data e hora alerta e url_img de alerta
 Commit 3 = Novo item editar alertas, retornando tipo no login, mexido enviar alerta foto
 Commit 4 = arrumado codificação
+Erro ao trocar plugin push para push-fcm: no chrome não roda > resolvido colocando if para verificar se está no cordova
+Erro ao trocar plugin push para push-fcm: Não compila mais > resolvido colocando versão no project.properties e mudando de lugar apply from: "cordova-plugin-fcm/android-FCMPlugin.gradle" para dentro if.
+Erro ao trocar plugin push para push-fcm: Erro não rodo no aparelho > tendando outra solução de plugin
+Enquanto não encontrava solução do erro modiquei os arquivos (para melhorar app):
+Enviar Alerta: coloquei o campo autor;
+Alertas pend: coloquei o autor; arrumei tipo, função editar tipo
+Editar Alerta: arrumei tipo, função editar tipo 
+Outro problema, depois de atualizar o CLI, deu problema em clonar repositório e fazer novo projeto. Solução > Criar novo projeto em branco e colar substituindo o conteudo do novo pelo que veio do git, e depois ainda colar as pastas @ionic-native, angularfire2, FireBase do projeto original na pasta node-modules do novo.
+ionic cordova plugin rm cordova-plugin-fcm > removido plugin fcm
+ionic cordova plugin add onesignal-cordova-plugin
+npm install --save @ionic-native/onesignal
+commit 5 = sem funcionar onesignal necessario desistalar e reinstalar, type_user não funciona ainda.

@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
+import { AlertController, ActionSheetController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class AcessarProvider {
   logEmail: string;
-  tipo: any;  
+  tipo: any;
   alerts: FirebaseListObservable<any>;
   oneAlert: FirebaseObjectObservable<any>;
-  users: FirebaseListObservable<any>;  
+  users: FirebaseListObservable<any>;
   e_mail: string;
   usuario: any;
   url_img: string;
+  key: any;
 
   constructor(
-    public navCtrl: NavController,
     public alertCtrl: AlertController,
     public af: AngularFireDatabase,
-    public actionSheetCtrl: ActionSheetController
+    public actionSheetCtrl: ActionSheetController,
+    private angularFireAuth: AngularFireAuth
   ) {
     
   }
@@ -59,7 +61,7 @@ export class AcessarProvider {
 
   especificoAlerta(alertID) {
     this.oneAlert = this.af.object('/alertList/' + alertID, { preserveSnapshot: true });
-    return this.oneAlert    
+    return this.oneAlert
   }
 
   ultimoAlerta() {
@@ -81,7 +83,8 @@ export class AcessarProvider {
   verificaUser() {
     firebase.auth().onAuthStateChanged(function (logadoObs) {
       if (logadoObs) {
-        console.log("usuário logado no observable!");
+        console.log("usuário logado no observable: "+ logadoObs.uid);
+        //this.key = logadoObs.uid;
         //console.log("email observable: " + logadoObs.email);
         // this.usuario = logadoObs;        
         //this.e_mail = logadoObs.email;
@@ -93,7 +96,7 @@ export class AcessarProvider {
     this.usuario = firebase.auth().currentUser;
     if (this.usuario) {
       console.log("usuário logado!");
-      this.tipoUser(this.usuario);
+      //this.tipoUser(this.usuario);
       this.e_mail = this.usuario.email;
     } else {
       console.log("Sem usuário logado!");
@@ -101,27 +104,48 @@ export class AcessarProvider {
     return this.e_mail
   }
 
-  tipoUser(item: any) {
-    this.logEmail = item.email;
-    this.af.list('/users', { preserveSnapshot: true })
-      .subscribe(snapshots => {
-        snapshots.forEach(snapshot => {
-          if (snapshot.val().email == this.logEmail) {
-            this.tipo = snapshot.val().type_user;
-            // console.log("Name: " + this.tipo);
-            // console.log("type: " + snapshot.val().type_user);
-            // console.log("email: " + snapshot.val().email);
-          }
-          // console.log("type: " + snapshot.val().type_user);
-          // console.log("email: " + snapshot.val().email);
-          // console.log("tipao: " + this.tipo);
-          // console.log("emailLogado: " + this.logEmail);
-        });
-      })
-    return this.tipo
-  }
+  // tipoUser(item: any) {
+  //   this.logEmail = item.email;
+  //   this.af.list('/users', { preserveSnapshot: true })
+  //     .subscribe(snapshots => {
+  //       snapshots.forEach(snapshot => {
+  //         if (snapshot.val().email == this.logEmail) {
+  //           this.tipo = snapshot.val().type_user;
+  //           // console.log("Name: " + this.tipo);
+  //           // console.log("type: " + snapshot.val().type_user);
+  //           // console.log("email: " + snapshot.val().email);
+  //         }
+  //         // console.log("type: " + snapshot.val().type_user);
+  //         // console.log("email: " + snapshot.val().email);
+  //         // console.log("tipao: " + this.tipo);
+  //         // console.log("emailLogado: " + this.logEmail);
+  //       });
+  //     })
+  //   return this.tipo
+  // }
+  
+  // currentUserId(): string {
+  //   return this.authenticated ? this.authState.uid : 'fs3SoRYAgEUu3BSReMvlpRvkuIw2';
+  // }
 
-  retornaTipo(){  
-    return this.tipo
+  retornaTipo() {
+    //let key = this.currentUserId;//this.angularFireAuth.auth.currentUser.uid;
+    
+    firebase.auth().onAuthStateChanged(function (logadoObs) {
+      if (logadoObs) {
+        console.log("key: "+ logadoObs.uid);
+       // this.key = logadoObs.uid;
+      }
+    });
+    this.key ='fs3SoRYAgEUu3BSReMvlpRvkuIw2';
+      return new Promise((resolve) => {
+        //Acessando as propriedados do usuario logado
+        this.usuario = this.af.object('/users/'+ this.key, { preserveSnapshot: true }).subscribe(action => {
+          //acho que é assim mesmo que recupera o valor        
+          resolve(action.val().type_user);
+          console.log("Tipo user na promise: " + action.val().type_user);
+          console.log("key: " + this.key);
+        });
+      });   
   }
 }

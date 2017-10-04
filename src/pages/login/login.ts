@@ -52,7 +52,7 @@ export class LoginPage {
     if (this.e_mail != null) {
       this.flag = false;
       let tipo = ap.retornaTipo();
-      console.log("Tipo User: " + tipo);
+      //console.log("Tipo User: " + tipo);
     }
     //this.users = ap.listarUser();
     //this.tipoUser = ap.retornaTipo(this.users)

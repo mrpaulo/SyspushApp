@@ -20,12 +20,11 @@ users: FirebaseListObservable<any>;
     public ap: AcessarProvider, 
     public actionSheetCtrl: ActionSheetController    
   ) {
-    this.users = ap.listarUser();
-    console.log("Lista: " + this.users)   
+    this.users = ap.listarUser();       
   }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserListaPage');
-  }
+  // ionViewDidLoad() {
+  //   console.log('ionViewDidLoad UserListaPage');
+  // }
 
   removeUser(userId: string){
     this.users.remove(userId);
