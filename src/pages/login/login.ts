@@ -42,7 +42,8 @@ export class LoginPage {
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private auth: AuthProvider
-  ) {
+  ){
+
     this.form = this.formBuilder.group({
       email: [''],
       password: ['']
@@ -50,28 +51,10 @@ export class LoginPage {
     
     this.e_mail = ap.verificaUser();
     if (this.e_mail != null) {
-      this.flag = false;
-      let tipo = ap.retornaTipo();
-      //console.log("Tipo User: " + tipo);
+      this.flag = false;      
     }
-    //this.users = ap.listarUser();
-    //this.tipoUser = ap.retornaTipo(this.users)
-    //console.log("Tipo User: "+ this.tipoUser);    
-  }
- 
-  // verificaUser() {        
-  //       this.usuario = firebase.auth().currentUser;        
-  //       if (this.usuario) {
-  //         console.log("usuário logado!");
-  //         this.nome = this.usuario.displayName;
-  //         this.e_mail = this.usuario.email;
-  //         this.flag = false;
-  //         console.log("Nome: " + this.nome);
-  //       } else {
-  //         console.log("Sem usuário logado!");
-  //       } 
-  //       return this.e_mail   
-  // }
+       
+  } 
 
   sair() {
     firebase.auth().signOut().then(function () {

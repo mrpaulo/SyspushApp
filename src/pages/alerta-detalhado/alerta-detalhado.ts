@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { FotoDoAlertaPage } from '../foto-do-alerta/foto-do-alerta';
 import { MapaPage } from '../mapa/mapa';
 import { FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database";
 import { AcessarProvider } from "../../providers/acessar/acessar";
@@ -26,19 +25,12 @@ export class AlertaDetalhadoPage {
       this.idAlert = this.navParams.get("key");
       this.oneAlert = ap.especificoAlerta(this.idAlert);
       this.oneAlert.subscribe(snapshot => {
-        this.oneAlert = snapshot.val();
+        this.oneAlert = snapshot.val();        
       });                
-    }
-  goToFotoDoAlerta(params){
-    if (!params) params = {};
-    this.navCtrl.push(FotoDoAlertaPage, {
-      key: params      
-    });
-  }
-  goToMapa(params){
-    if (!params) params = {};
+    }  
+  goToMapa() {    
     this.navCtrl.push(MapaPage, {
-      key: params      
+      key: this.idAlert
     });
   }
 }

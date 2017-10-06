@@ -120,4 +120,10 @@ Outro problema, depois de atualizar o CLI, deu problema em clonar repositório e
 ionic cordova plugin rm cordova-plugin-fcm > removido plugin fcm
 ionic cordova plugin add onesignal-cordova-plugin
 npm install --save @ionic-native/onesignal
-commit 5 = sem funcionar onesignal necessario desistalar e reinstalar, type_user não funciona ainda.
+commit 5 = sem funcionar onesignal necessario desistalar e reinstalar (segundo suporte), type_user não funciona ainda.
+ionic cordova plugin rm onesignal-cordova-plugin > removido onesignal
+Maps--
+api para android: AIzaSyCx1cI4UdU_PWQN5N8Xwhovi8cV4Uzjs5c
+Funcionou com a atualização da key;
+
+

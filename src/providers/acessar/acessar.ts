@@ -130,21 +130,25 @@ export class AcessarProvider {
 
   retornaTipo() {
     //let key = this.currentUserId;//this.angularFireAuth.auth.currentUser.uid;
+        
+    var user = firebase.auth().currentUser;
+    var name, email, photoUrl, uid, emailVerified;
     
-    firebase.auth().onAuthStateChanged(function (logadoObs) {
-      if (logadoObs) {
-        console.log("key: "+ logadoObs.uid);
-       // this.key = logadoObs.uid;
-      }
-    });
-    this.key ='fs3SoRYAgEUu3BSReMvlpRvkuIw2';
-      return new Promise((resolve) => {
+    if (user != null) {     
+      uid = user.getToken();  // The user's ID, unique to the Firebase project. Do NOT use
+                       // this value to authenticate with your backend server, if
+                       // you have one. Use User.getToken() instead.
+    }
+    //this.key = firebase.auth().currentUser.uid;
+    //this.key ='fs3SoRYAgEUu3BSReMvlpRvkuIw2';
+   console.log("key: " + uid);   
+   return new Promise((resolve) => {
         //Acessando as propriedados do usuario logado
-        this.usuario = this.af.object('/users/'+ this.key, { preserveSnapshot: true }).subscribe(action => {
+        this.usuario = this.af.object('/users/'+ uid, { preserveSnapshot: true }).subscribe(action => {
           //acho que é assim mesmo que recupera o valor        
-          resolve(action.val().type_user);
-          console.log("Tipo user na promise: " + action.val().type_user);
-          console.log("key: " + this.key);
+          resolve(action.val());
+          console.log("user na promise: " + action.val());
+          //console.log("key: " + this.key);
         });
       });   
   }

@@ -25,13 +25,6 @@ export class InCioPage {
     public ap: AcessarProvider    
   ) {
     this.alerts = ap.ultimoAlerta();
-
-    let verifica = ap.retornaTipo();
-    console.log("Tipo User: " + verifica);
-    // if(verifica){
-    //   let tipo = ap.retornaTipo();
-    //   console.log("Tipo User: " + tipo);
-    // }    
   }  
 
   goToAlertaDetalhado(params1) {

@@ -1,0 +1,17 @@
+ if (platform.is('cordova')) {
+      this.initPush();
+    }
+
+initPush() {
+    this.one.startInit("7812b1be-0fbf-4494-b24f-0bf908c5b2aa", "105371248958");
+    this.one.inFocusDisplaying(this.one.OSInFocusDisplayOption.InAppAlert);
+    this.one.handleNotificationReceived().subscribe(() => {
+      // do something when notification is received
+      alert("One signal recebido!!!");
+    });
+    this.one.handleNotificationOpened().subscribe(() => {
+      // do something when a notification is opened
+      alert("One signal aberto!!!");
+    });
+    this.one.endInit();
+  }

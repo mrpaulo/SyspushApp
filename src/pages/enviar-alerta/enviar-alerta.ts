@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { AcessarProvider } from "../../providers/acessar/acessar";
-import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { LocalizarProvider } from "../../providers/localizar/localizar";
 import { InCioPage } from "../in-cio/in-cio";
-import { Camera /*CameraOptions*/ } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 //import { File } from '@ionic-native/file';
 //import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
-//import { FirebaseApp } from 'angularfire2';
-//import * as firebase from 'firebase';
+import { FirebaseApp } from 'angularfire2';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'page-enviar-alerta',
@@ -23,7 +23,7 @@ import { Camera /*CameraOptions*/ } from '@ionic-native/camera';
 export class EnviarAlertaPage {
   url: string;
   //apiEndPoint: any = 'https://api.cloudinary.com/v1_1/dht8hrgql/image/upload';//'https://photocloudapp.herokuapp.com/api/v1/post/upload';
-  pendAlert: FirebaseListObservable<any>;
+  pendAlert: FirebaseObjectObservable<any>;
   photo: any;
   form: FormGroup;
   local: any;
@@ -48,7 +48,7 @@ export class EnviarAlertaPage {
     public alertCtrl: AlertController,
     private camera: Camera,
     private loadingCtrl: LoadingController,    
-    //private fb: FirebaseApp
+    private fb: FirebaseApp
     //public transfer: FileTransferObject,
     //public file: File
   ) {
@@ -64,10 +64,9 @@ export class EnviarAlertaPage {
     let photo = this.obterPhoto();
     let local = this.lp.obterLocal();
     let dataAgora = new Date();
-    this.dataString = dataAgora.toString();
-    console.log("Data Alerta: "+dataAgora);
-    this.pendAlert = this.af.list('/pendAlertList');
-    this.pendAlert.push({
+    this.dataString = dataAgora.toString();   
+    this.pendAlert = this.af.object('/pendAlertList/'+this.dataString);
+    this.pendAlert.set({
       date_alert: this.dataString,
       title_alert: this.form.value.title_alert,
       type_alert: this.form.value.type_alert,
@@ -86,32 +85,44 @@ export class EnviarAlertaPage {
     this.navCtrl.setRoot(InCioPage);
   }
 
+  // takePicture() {
+  //   this.camera.getPicture({
+  //     destinationType: this.camera.DestinationType.DATA_URL,
+  //     targetWidth: 1000,
+  //     targetHeight: 1000
+  //   }).then((imageData) => {
+  //     // imageData is a base64 encoded string
+  //     this.base64Image = "data:image/jpeg;base64," + imageData;
+  //     this.uploadFile(imageData);
+  //   }, (err) => {
+  //     console.log(err);
+  //   });
+  // }
   takePicture() {
-    this.camera.getPicture({
-      destinationType: this.camera.DestinationType.DATA_URL,
-      targetWidth: 1000,
-      targetHeight: 1000
-    }).then((imageData) => {
-      // imageData is a base64 encoded string
-      this.base64Image = "data:image/jpeg;base64," + imageData;
-      this.uploadFile(imageData);
+    const cameraOptions: CameraOptions = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+    };
+
+    this.camera.getPicture(cameraOptions).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
-      console.log(err);
+      // Handle error
+      alert(err);
     });
   }
 
   //solução com o storage do FireBase (em andamento...)
   public obterPhoto() {       
-      // let storageRef = this.fb.storage().ref();
-      // let basePath = '/fotos/' + this.dataString;
-      // let fullPath = basePath + '/' + this.form.value.title_alert + '.png';
-      // let uploadTask = storageRef.child(fullPath).putString(item.fileToUpload, 'base64');
+      // let storageRef = this.fb.storage().ref();      
+      // let fullPath = '/fotos/' + this.dataString + '.png';
+      // let uploadTask = storageRef.child(fullPath).putString(fileToUpload, 'base64');
 
       // uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      // (snapshot) => {
-      //   var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      //   console.log(progress + "% done");
-      // },
       // (error) => {
       //   console.error(error);
       // },
@@ -122,41 +133,5 @@ export class EnviarAlertaPage {
       return "http://res.cloudinary.com/dht8hrgql/image/upload/v1499814594/ImagensAlertas/3.jpg"
   }
   //fim solução 
-
-  //js puro - Não funcionou
-  cloudName: any = 'dht8hrgql';
-  unsignedUploadPreset: any = 'zq35ikx2';
-  // *********** Upload file to Cloudinary ******************** //
-  uploadFile(file) {
-    let loader = this.loadingCtrl.create({
-      content: "Aguarde..."
-    });
-    loader.present();
-    var url = `https://api.cloudinary.com/v1_1/${this.cloudName}/upload`;
-    var xhr = new XMLHttpRequest();
-    var fd = new FormData();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-    xhr.onreadystatechange = function (e) {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        // File uploaded successfully
-        var response = JSON.parse(xhr.responseText);
-        // https://res.cloudinary.com/cloudName/image/upload/v1483481128/public_id.jpg
-        var url = response.secure_url;
-        alert("url: " + url);
-        //this.getUrlFoto(url);
-      }
-    };
-
-    fd.append('upload_preset', this.unsignedUploadPreset);
-    fd.append('tags', 'Syspush'); // Optional - add tag for image admin in Cloudinary
-    fd.append('file', file);
-    xhr.send(fd);
-  }
-
-  getUrlFoto(url){
-    return url;
-  }
 
 }

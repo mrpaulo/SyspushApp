@@ -27,9 +27,7 @@ import { GoogleMaps } from "@ionic-native/google-maps";
 import { UserListaPage } from "../pages/user-lista/user-lista";
 import { AlertasPendPage } from "../pages/alertas-pend/alertas-pend";
 import { EditarAlertasPage } from "../pages/editar-alertas/editar-alertas";
-import { FCM } from '@ionic-native/fcm';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { OneSignal } from '@ionic-native/onesignal';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCqnIxiNh5V5vUFC2svytMYBcXmLz2zRdE',
@@ -91,8 +89,7 @@ const firebaseConfig = {
     AuthProvider,
     Geolocation,
     GoogleMaps,
-    AngularFireAuth,
-    OneSignal          
+    AngularFireAuth             
   ]
 })
 export class AppModule {}

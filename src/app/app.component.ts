@@ -17,7 +17,6 @@ import { UserListaPage } from "../pages/user-lista/user-lista";
 import { AlertasPendPage } from "../pages/alertas-pend/alertas-pend";
 import { EditarAlertasPage } from "../pages/editar-alertas/editar-alertas";
 import { AcessarProvider } from "../providers/acessar/acessar";
-import { OneSignal } from '@ionic-native/onesignal';
 
 @Component({
   templateUrl: 'app.html'
@@ -34,53 +33,30 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     public alertCtrl: AlertController,
-    public ap: AcessarProvider,
-    public one: OneSignal
+    public ap: AcessarProvider    
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.         
       statusBar.styleDefault();
       splashScreen.hide();
-      //this.tipoUser();
+      
       //this.initPush();      
       this.ap.retornaTipo()
         .then((tipo) => {
-          this.tipoUser(tipo);
-          console.log("Tipo novo: " + tipo);
-          //preecho alguma propriedade com o tipo do usuario.
+          tipo = "2";
+          if (tipo == "1") {
+            this.userCadastrado = true;
+          }
+          if (tipo == "2") {
+            this.userCadastrado = true;
+            this.userOperador = true;
+          }
+          console.log("Tipo novo: " + tipo);          
         })
 
-    });
-    if (platform.is('cordova')) {
-      this.initPush();
-    }
-  }
-  //inicio init push - ainda não funciona
-  initPush() {
-    this.one.startInit("7812b1be-0fbf-4494-b24f-0bf908c5b2aa", "105371248958");
-    this.one.inFocusDisplaying(this.one.OSInFocusDisplayOption.InAppAlert);
-    this.one.handleNotificationReceived().subscribe(() => {
-      // do something when notification is received
-      alert("One signal recebido!!!");
-    });
-    this.one.handleNotificationOpened().subscribe(() => {
-      // do something when a notification is opened
-      alert("One signal aberto!!!");
-    });
-    this.one.endInit();
-  }
-
-  tipoUser(tipo) {// preciso retornar o tipo aqui para mostrar ou não itens do menu, a informacao esta sendo gerado no arquivo acessar.ts 
-    //tipo = "2";//ap.retornaTipo();
-    if (tipo == "1") {
-      this.userCadastrado = true;
-    }
-    if (tipo == "2") {
-      this.userCadastrado = true;
-      this.userOperador = true;
-    }
-  }
+    });   
+  } 
 
   goToAlertaDetalhado(params) {
     if (!params) params = {};

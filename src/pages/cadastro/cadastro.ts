@@ -60,7 +60,7 @@ export class CadastroPage {
       this.user = this.af.object('/users/' + this.angularFireAuth.auth.currentUser.uid);
       //this.user = this.af.list('/users');
       this.user.set({
-      //this.user.push({
+      //this.user.push({ 
         name: this.form.value.name,
         cellphone: this.form.value.cellphone,
         email: this.form.value.email,
