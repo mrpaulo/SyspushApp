@@ -106,9 +106,9 @@ ionic cordova run android -lcs --address localhost
 *Build
 ionic cordova build android
 
-Commit 2 = salvando data e hora alerta e url_img de alerta
-Commit 3 = Novo item editar alertas, retornando tipo no login, mexido enviar alerta foto
-Commit 4 = arrumado codificação
+#Commit 2 = salvando data e hora alerta e url_img de alerta
+#Commit 3 = Novo item editar alertas, retornando tipo no login, mexido enviar alerta foto
+#Commit 4 = arrumado codificação
 Erro ao trocar plugin push para push-fcm: no chrome não roda > resolvido colocando if para verificar se está no cordova
 Erro ao trocar plugin push para push-fcm: Não compila mais > resolvido colocando versão no project.properties e mudando de lugar apply from: "cordova-plugin-fcm/android-FCMPlugin.gradle" para dentro if.
 Erro ao trocar plugin push para push-fcm: Erro não rodo no aparelho > tendando outra solução de plugin
@@ -120,10 +120,11 @@ Outro problema, depois de atualizar o CLI, deu problema em clonar repositório e
 ionic cordova plugin rm cordova-plugin-fcm > removido plugin fcm
 ionic cordova plugin add onesignal-cordova-plugin
 npm install --save @ionic-native/onesignal
-commit 5 = sem funcionar onesignal necessario desistalar e reinstalar (segundo suporte), type_user não funciona ainda.
+#commit 5 = sem funcionar onesignal necessario desistalar e reinstalar (segundo suporte), type_user não funciona ainda.
 ionic cordova plugin rm onesignal-cordova-plugin > removido onesignal
 Maps--
 api para android: AIzaSyCx1cI4UdU_PWQN5N8Xwhovi8cV4Uzjs5c
 Funcionou com a atualização da key;
+#commit 6 = Com maps funcionando
 
 
