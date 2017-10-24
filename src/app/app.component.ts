@@ -17,11 +17,13 @@ import { UserListaPage } from "../pages/user-lista/user-lista";
 import { AlertasPendPage } from "../pages/alertas-pend/alertas-pend";
 import { EditarAlertasPage } from "../pages/editar-alertas/editar-alertas";
 import { AcessarProvider } from "../providers/acessar/acessar";
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+  type_user: boolean;
   @ViewChild(Nav) navCtrl: Nav;
   rootPage: any = InCioPage;
   userCadastrado = false;
@@ -33,31 +35,31 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     public alertCtrl: AlertController,
-    public ap: AcessarProvider    
+    public ap: AcessarProvider,
+    private angularFireAuth: AngularFireAuth
   ) {
+    this.angularFireAuth.authState.subscribe(user => {
+      if (user) {
+        this.userCadastrado = true;
+        this.type_user = this.ap.verificaUser().oper;
+        if (this.type_user) {            
+          this.userOperador = true;         
+        }
+      } else {            
+        this.userCadastrado = false;
+        this.userOperador = false;
+      }
+      console.log("Tipo no app.component: " + this.type_user);
+    });
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.         
       statusBar.styleDefault();
       splashScreen.hide();
-      
-      //this.initPush();      
-      this.ap.retornaTipo()
-        .then((tipo) => {
-          tipo = "2";
-          if (tipo == "1") {
-            this.userCadastrado = true;
-          }
-          if (tipo == "2") {
-            this.userCadastrado = true;
-            this.userOperador = true;
-          }
-          console.log("Tipo novo: " + tipo);          
-        })
-
-    });   
-  } 
-
+      //this.initPush();       
+    });
+  }
+  
   goToAlertaDetalhado(params) {
     if (!params) params = {};
     this.navCtrl.setRoot(AlertaDetalhadoPage);

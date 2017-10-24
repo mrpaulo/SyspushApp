@@ -15,3 +15,23 @@ initPush() {
     });
     this.one.endInit();
   }
+
+  app.html
+  <ion-item hideWhen="type_user.type_user==0" color="none" menuClose="" on-click="goToEnviarAlerta()" id="menu-list-item3">
+        Enviar Alerta
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToConfiguraEs()" id="menu-list-item4">
+        Configurações
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToLogin()" id="menu-list-item5">
+        Login
+      </ion-item>
+      <ion-item hideWhen="type_user.type_user==0 || type_user.type_user==1" color="none" menuClose="" on-click="goToUserList()" id="menu-list-item4">
+        Editar Usuários
+      </ion-item>
+      <ion-item hideWhen="type_user.type_user==0 || type_user.type_user==1" color="none" menuClose="" on-click="goToAlertPend()" id="menu-list-item5">
+        Alertas Pendentes
+      </ion-item>
+      <ion-item hideWhen="type_user.type_user==0 || type_user.type_user==1" color="none" menuClose="" on-click="goToEditarAlertas()" id="menu-list-item6">
+        Editar Alertas
+      </ion-item>

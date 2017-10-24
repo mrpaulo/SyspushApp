@@ -13,7 +13,7 @@
   <ion-list id="alertaDetalhado-list7" *ngFor="let alert of alerts | async">
     <ion-card>
       <ion-item class="item-thumbnail-left">
-        <img style="width: 120px; height: 120px; margin: auto;" [src]="'../../assets/' + alert.url_img">
+        <img style="width: 120px; height: 120px; margin: auto;" [src]="'assets/' + alert.url_img">
         <p>Título:</p>
         <h1>{{alert.title_alert}}</h1>
         <p>Data e hora: {{alert.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>

@@ -34,7 +34,7 @@ export class MapaPage {
       this.initMap();
     });
   }
-
+ 
   initMap() {
 
     const [first, second] = this.coordenadas.split(', ');    
@@ -122,10 +122,9 @@ export class MapaPage {
   //   });
   //    }
 
-  goToFotoDoAlerta(params) {
-    if (!params) params = {};
+  goToFotoDoAlerta() {    
     this.navCtrl.push(FotoDoAlertaPage, {
-      key: params
+      key: this.navParams.get("key")
     });
   }
 }

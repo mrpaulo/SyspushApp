@@ -66,6 +66,7 @@ export class CadastroPage {
         email: this.form.value.email,
         password: this.form.value.password,//depois de instalar o "md5" Md5.hashStr(password)
         local: this.coordenadas,
+        oper: false,
         type_user: 1      
       });
     } 

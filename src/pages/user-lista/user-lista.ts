@@ -55,8 +55,10 @@ users: FirebaseListObservable<any>;
         {
           text: 'Save',
           handler: data => {
+            if(data=='2'){var value = true}else{value = false}
             this.users.update(userId, {              
-              type_user: data
+              type_user: data,
+              oper: value
             });
           }
         }

@@ -21,20 +21,13 @@ import * as firebase from 'firebase/app';
   ]
 })
 export class EnviarAlertaPage {
-  url: string;
-  //apiEndPoint: any = 'https://api.cloudinary.com/v1_1/dht8hrgql/image/upload';//'https://photocloudapp.herokuapp.com/api/v1/post/upload';
+  
+  url: string;  
   pendAlert: FirebaseObjectObservable<any>;
   photo: any;
   form: FormGroup;
   local: any;
   dataString: string;
-
-  // postTitle: any;
-  // desc: any;
-  // imageChosen: any = 0;
-  // imagePath: any;
-  // imageNewPath: any;
-  // filetransfer: any;
 
   public base64Image: string;
 
@@ -48,9 +41,7 @@ export class EnviarAlertaPage {
     public alertCtrl: AlertController,
     private camera: Camera,
     private loadingCtrl: LoadingController,    
-    private fb: FirebaseApp
-    //public transfer: FileTransferObject,
-    //public file: File
+    private fb: FirebaseApp    
   ) {
     this.form = this.formBuilder.group({
       title_alert: [''],
@@ -60,7 +51,7 @@ export class EnviarAlertaPage {
   }
 
   sendAlert() {
-    let autor = this.ap.verificaUser();
+    let autor = this.ap.verificaUser().e_mail;
     let photo = this.obterPhoto();
     let local = this.lp.obterLocal();
     let dataAgora = new Date();
@@ -71,11 +62,13 @@ export class EnviarAlertaPage {
       title_alert: this.form.value.title_alert,
       type_alert: this.form.value.type_alert,
       last_description: this.form.value.last_description,
-      local_alert: local,
+      local_alert: 'local',
       url_photo: photo,
       autor: autor      
     })
-
+    // firebase.database().ref().child('/teste/').child(this.dataString).push({
+    //   localizar: "local"
+    // })
     let prompt = this.alertCtrl.create({
       title: 'Syspush diz:',
       message: "Alerta enviado com sucesso! Agora aguarde aprovação do moderador!",
@@ -99,22 +92,23 @@ export class EnviarAlertaPage {
   //   });
   // }
   takePicture() {
-    const cameraOptions: CameraOptions = {
-      quality: 50,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-    };
+    var options: CameraOptions = {
+      destinationType: 1,
+      sourceType: 1,
+      encodingType: 0,
+      quality:60,
+      allowEdit: false,
+      saveToPhotoAlbum: false
+  };
 
-    this.camera.getPicture(cameraOptions).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
-      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+    this.camera.getPicture(options).then((imageData) => {    
+      var img = imageData;     //'data:image/jpeg;base64,' + 
     }, (err) => {
       // Handle error
       alert(err);
     });
   }
+  
 
   //solução com o storage do FireBase (em andamento...)
   public obterPhoto() {       

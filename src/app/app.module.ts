@@ -28,6 +28,26 @@ import { UserListaPage } from "../pages/user-lista/user-lista";
 import { AlertasPendPage } from "../pages/alertas-pend/alertas-pend";
 import { EditarAlertasPage } from "../pages/editar-alertas/editar-alertas";
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Push } from "@ionic-native/push";
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+
+const cloudSettings: CloudSettings = {
+ 'core': {
+   'app_id': '0308e312'
+ },
+ 'push': {
+   'sender_id': '105371248958',
+   'pluginConfig': {
+     'ios': {
+       'badge': true,
+       'sound': true
+     },
+     'android': {
+       'iconColor': '#ff0000'
+     }
+   }
+ }
+};
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCqnIxiNh5V5vUFC2svytMYBcXmLz2zRdE',
@@ -89,7 +109,8 @@ const firebaseConfig = {
     AuthProvider,
     Geolocation,
     GoogleMaps,
-    AngularFireAuth             
+    AngularFireAuth, 
+    Push             
   ]
 })
 export class AppModule {}

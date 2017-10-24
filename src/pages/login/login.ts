@@ -49,8 +49,8 @@ export class LoginPage {
       password: ['']
     });
     
-    this.e_mail = ap.verificaUser();
-    if (this.e_mail != null) {
+    this.e_mail = ap.verificaUser().e_mail;
+    if (this.e_mail) {
       this.flag = false;      
     }
        
