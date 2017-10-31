@@ -20,14 +20,12 @@
         <div class="item item-body" id="alertaDetalhado-list-item-container7">
           <h2>Descrição:</h2>
           <div id="alertaDetalhado-markdown8" class="show-list-numbers-and-dots">
-            <h2>{{alert.last_description}}</h2>
+            <h2>{{alert.last_description}}</h2>            
           </div>
         </div>
       </ion-item>
     </ion-card>
-
-
-    <button id="inCio-button1" ion-button color="positive" block on-click="goToAlertaDetalhado(alert.$key)">
+    <button id="inCio-button1" ion-button color="positive" block (click)="goToAlertaDetalhado(alert.key)">
     Detalhes
   </button>
     <button id="inCio-button2" ion-button color="positive" block on-click="goToFotoDoAlerta(alert.$key)">

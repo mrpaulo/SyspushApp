@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, ActionSheetController, NavParams } from 'ionic-angular';
 
-import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireDatabase} from 'angularfire2/database';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  alerts: FirebaseListObservable<any>;
+  alerts:  any;
   pushMessage: string = 'push message will be displayed here';
 
   constructor(

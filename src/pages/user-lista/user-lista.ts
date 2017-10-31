@@ -1,7 +1,7 @@
 import { IonicPage, NavController, AlertController, ActionSheetController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { AcessarProvider } from "../../providers/acessar/acessar";
-import { FirebaseListObservable } from "angularfire2/database";
+//import { FirebaseListObservable } from "angularfire2/database";
 
 @IonicPage()
 @Component({
@@ -12,7 +12,7 @@ import { FirebaseListObservable } from "angularfire2/database";
   ]
 })
 export class UserListaPage {
-users: FirebaseListObservable<any>;
+users:  any;
 
   constructor(
     public navCtrl: NavController,

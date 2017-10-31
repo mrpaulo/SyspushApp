@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { AlertController, ActionSheetController } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AlertController, ActionSheetController, Item } from 'ionic-angular';
+import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 
@@ -10,9 +10,9 @@ export class AcessarProvider {
   id: any;
   logEmail: string;
   tipo: any;
-  alerts: FirebaseListObservable<any>;
-  oneAlert: FirebaseObjectObservable<any>;
-  users: FirebaseListObservable<any>;
+  alerts: any;
+  oneAlert: any;
+  users: any;
   e_mail: string;
   usuario: any;
   url_img: string;
@@ -45,104 +45,92 @@ export class AcessarProvider {
   }
 
   listarPendAlertas() {
-    return this.alerts = this.af.list('/pendAlertList', {
-      query: {
-        limitToLast: 30
-      }
-    });
+    return this.af.list('/pendAlertList', ref => ref.limitToLast(30)).valueChanges();
   }
 
   listarUser() {
-    this.users = this.af.list('/users', {
-      query: {
-        limitToLast: 30
-      }
-    });
-    return this.users
+    return this.af.list('/users', ref => ref.limitToLast(30)).valueChanges();
+
   }
 
   especificoAlerta(alertID) {
-    this.oneAlert = this.af.object('/alertList/' + alertID, { preserveSnapshot: true });
-    return this.oneAlert
+    return this.af.object('/alertList/' + alertID).snapshotChanges();
   }
 
   ultimoAlerta() {
-    return this.alerts = this.af.list('/alertList', {
-      query: {
-        limitToLast: 1
-      }
+    this.af.list('alertList', ref => ref.limitToLast(1)).snapshotChanges().map(changes => {
+      return changes.map(m => ({ key: m.payload.key, alerta: m.payload.val() }));
     });
+
   }
 
   listarAlertas() {
-    return this.alerts = this.af.list('/alertList', {
-      query: {
-        limitToLast: 30
-      }
-    });
+    return this.af.list('/alertList', ref => ref.limitToLast(30)).valueChanges();
   }
 
   //verificaUser() {
-    // firebase.auth().onAuthStateChanged(function (logadoObs) {
-    //   if (logadoObs) {
-    //     console.log("usuário logado no observable: ");
-    //     //this.key = logadoObs.uid;
-    //     //console.log("email observable: " + logadoObs.email);
-    //     // this.usuario = logadoObs;        
-    //     //this.e_mail = logadoObs.email;
-    //   } else {
-    //     console.log("Sem usuário logado no observable!");
-    //   }
-    // });
-    //this.tipoUser(this.usuario);  
+  // firebase.auth().onAuthStateChanged(function (logadoObs) {
+  //   if (logadoObs) {
+  //     console.log("usuário logado no observable: ");
+  //     //this.key = logadoObs.uid;
+  //     //console.log("email observable: " + logadoObs.email);
+  //     // this.usuario = logadoObs;        
+  //     //this.e_mail = logadoObs.email;
+  //   } else {
+  //     console.log("Sem usuário logado no observable!");
+  //   }
+  // });
+  //this.tipoUser(this.usuario);  
 
 
 
-    // tipoUser(item: any) {
-    //   this.logEmail = item.email;
-    //   this.af.list('/users', { preserveSnapshot: true })
-    //     .subscribe(snapshots => {
-    //       snapshots.forEach(snapshot => {
-    //         if (snapshot.val().email == this.logEmail) {
-    //           this.tipo = snapshot.val().type_user;
-    //           // console.log("Name: " + this.tipo);
-    //           // console.log("type: " + snapshot.val().type_user);
-    //           // console.log("email: " + snapshot.val().email);
-    //         }
-    //         // console.log("type: " + snapshot.val().type_user);
-    //         // console.log("email: " + snapshot.val().email);
-    //         // console.log("tipao: " + this.tipo);
-    //         // console.log("emailLogado: " + this.logEmail);
-    //       });
-    //     })
-    //   return this.tipo
-    // }
+  // tipoUser(item: any) {
+  //   this.logEmail = item.email;
+  //   this.af.list('/users', { preserveSnapshot: true })
+  //     .subscribe(snapshots => {
+  //       snapshots.forEach(snapshot => {
+  //         if (snapshot.val().email == this.logEmail) {
+  //           this.tipo = snapshot.val().type_user;
+  //           // console.log("Name: " + this.tipo);
+  //           // console.log("type: " + snapshot.val().type_user);
+  //           // console.log("email: " + snapshot.val().email);
+  //         }
+  //         // console.log("type: " + snapshot.val().type_user);
+  //         // console.log("email: " + snapshot.val().email);
+  //         // console.log("tipao: " + this.tipo);
+  //         // console.log("emailLogado: " + this.logEmail);
+  //       });
+  //     })
+  //   return this.tipo
+  // }
 
-    // currentUserId(): string {
-    //   return this.authenticated ? this.authState.uid : 'fs3SoRYAgEUu3BSReMvlpRvkuIw2';
-    // }
+  // currentUserId(): string {
+  //   return this.authenticated ? this.authState.uid : 'fs3SoRYAgEUu3BSReMvlpRvkuIw2';
+  // }
 
-    verificaUser() { 
+  verificaUser() {
 
-      var usuarioAtual = firebase.auth().currentUser;
-      if (usuarioAtual) {
-        console.log("usuário logado!");
-        
-        this.user.e_mail = usuarioAtual.email;
-        //this.user.id = usuarioAtual.uid;       
-        this.af.object('/users/' + usuarioAtual.uid).subscribe(user => this.user.oper = user.oper);
-        console.log("userId: "+ usuarioAtual.uid);
-        console.log("Operador 1: " +  this.user.oper);
-      } else {
-        console.log("Sem usuário logado!");
-      }
+    var usuarioAtual = firebase.auth().currentUser;
+    if (usuarioAtual) {
+      console.log("usuário logado!");
 
-      this.user.type_user = 0; //usuario anonimo = 0 
-      if (this.angularFireAuth.auth.currentUser) {
-        this.af.object('/users/' + this.angularFireAuth.auth.currentUser.uid).subscribe(user => this.user.oper = user.oper);
-      }
-      console.log("Operador 2: " +  this.user.oper);
-      return this.user
+      this.user.e_mail = usuarioAtual.email;
+      //this.user.id = usuarioAtual.uid;       
+      // this.af.object('/users/' + usuarioAtual.uid).subscribe(user => this.user.oper = user.oper);
+      console.log("userId: " + usuarioAtual.uid);
+      //console.log("Operador 1: " +  this.user.oper);
+    } else {
+      console.log("Sem usuário logado!");
     }
 
+    this.user.type_user = 0; //usuario anonimo = 0 
+    this.user.oper = false;
+    if (this.angularFireAuth.auth.currentUser) {
+      //this.af.object('/users/' + this.angularFireAuth.auth.currentUser.uid).subscribe(user => this.user.oper = user.oper);
+      this.af.object('/users/' + this.angularFireAuth.auth.currentUser.uid).snapshotChanges().map(user => this.user.oper = user.payload.val().oper);
+    }
+    console.log("Operador 2: " + this.user.oper);
+    return this.user
   }
+
+}

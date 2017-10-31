@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, ActionSheetController } from 'ionic-angular';
 import { AcessarProvider } from "../../providers/acessar/acessar";
-import { FirebaseListObservable } from "angularfire2/database";
+//import { FirebaseListObservable } from "angularfire2/database";
 import { FotoDoAlertaPage } from '../foto-do-alerta/foto-do-alerta';
 import { MapaPage } from '../mapa/mapa';
 
@@ -14,7 +14,7 @@ import { MapaPage } from '../mapa/mapa';
   ]
 })
 export class AlertasPendPage {
-  public alerts: FirebaseListObservable<any>;
+  public alerts: any;
 
   constructor(
     public navCtrl: NavController,

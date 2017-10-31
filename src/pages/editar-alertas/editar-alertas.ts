@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, ActionSheetController } from 'ionic-angular';
 import { AcessarProvider } from "../../providers/acessar/acessar";
-import { FirebaseListObservable } from "angularfire2/database";
+//import { FirebaseListObservable } from "angularfire2/database";
 
 @IonicPage()
 @Component({
@@ -15,7 +15,7 @@ import { FirebaseListObservable } from "angularfire2/database";
 export class EditarAlertasPage {
   dataString: string;
   url_img: any;
-  public alerts: FirebaseListObservable<any>;
+  public alerts: any;
 
   constructor(
     public navCtrl: NavController,

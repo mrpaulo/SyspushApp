@@ -3,7 +3,7 @@ import { NavController, Platform } from 'ionic-angular';
 import { AlertaDetalhadoPage } from '../alerta-detalhado/alerta-detalhado';
 import { FotoDoAlertaPage } from '../foto-do-alerta/foto-do-alerta';
 import { MapaPage } from '../mapa/mapa';
-import { FirebaseListObservable } from "angularfire2/database";
+//import { FirebaseListObservable } from "angularfire2/database";
 import { AcessarProvider } from "../../providers/acessar/acessar";
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
@@ -17,8 +17,8 @@ import { Push, PushObject, PushOptions } from '@ionic-native/push';
 export class InCioPage {
   tipoUser: void;
 
-  users: FirebaseListObservable<any>;
-  public alerts: FirebaseListObservable<any>;
+  users: any;
+  public alerts: any;
   public retorno: any;
 
   constructor(
@@ -26,7 +26,7 @@ export class InCioPage {
     public ap: AcessarProvider,
     private push: Push, public platform: Platform
   ) {
-    this.alerts = ap.ultimoAlerta();
+    this.alerts = ap.ultimoAlerta();    
     ap.verificaUser();
   }
   //inicio push
@@ -74,6 +74,7 @@ export class InCioPage {
   //fim push
 
   goToAlertaDetalhado(params1) {
+    console.log("idAlert: "+ params1);
     if (!params1) params1 = {};
     this.navCtrl.push(AlertaDetalhadoPage, {
       key: params1

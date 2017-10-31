@@ -15,6 +15,7 @@ import { AcessarProvider } from '../../providers/acessar/acessar';
   templateUrl: 'mapa.html'
 })
 export class MapaPage {
+  item: any;
   longitude: number;
   latitude: number;
   titulo: any;
@@ -24,13 +25,13 @@ export class MapaPage {
 
   constructor(public navCtrl: NavController, private googleMaps: GoogleMaps, public viewCtrl: ViewController, public elRef: ElementRef, public platform: Platform, public ap: AcessarProvider, public navParams: NavParams) {
     platform.ready().then(() => {
-      let idAlert = this.navParams.get("key");
-      console.log("Keyy: "+ idAlert);
-      let oneAlert = ap.especificoAlerta(idAlert);
-      oneAlert.subscribe(snapshot => {
-        this.coordenadas = snapshot.val().local_alert;
-        this.titulo = snapshot.val().title_alert;        
-      });
+      // let idAlert = this.navParams.get("key");     
+      // var oneAlert = ap.especificoAlerta(idAlert);
+      // oneAlert.snapshotChanges().map(snapshot => 
+      //    this.item = snapshot.payload.val()        
+      // );
+      // this.coordenadas = this.item.local_alert;
+      // this.titulo = this.item.title_alert;
       this.initMap();
     });
   }

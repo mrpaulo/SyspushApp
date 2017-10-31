@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { AcessarProvider } from "../../providers/acessar/acessar";
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database";
+import { AngularFireDatabase } from "angularfire2/database";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { LocalizarProvider } from "../../providers/localizar/localizar";
 import { InCioPage } from "../in-cio/in-cio";
@@ -21,9 +21,10 @@ import * as firebase from 'firebase/app';
   ]
 })
 export class EnviarAlertaPage {
-  
-  url: string;  
-  pendAlert: FirebaseObjectObservable<any>;
+  img: any;
+
+  urlPhoto: string;
+  pendAlert: any;
   photo: any;
   form: FormGroup;
   local: any;
@@ -40,8 +41,8 @@ export class EnviarAlertaPage {
     private formBuilder: FormBuilder,
     public alertCtrl: AlertController,
     private camera: Camera,
-    private loadingCtrl: LoadingController,    
-    private fb: FirebaseApp    
+    private loadingCtrl: LoadingController,
+    private fb: FirebaseApp
   ) {
     this.form = this.formBuilder.group({
       title_alert: [''],
@@ -52,11 +53,15 @@ export class EnviarAlertaPage {
 
   sendAlert() {
     let autor = this.ap.verificaUser().e_mail;
-    let photo = this.obterPhoto();
+    if (this.img) {
+      var photo = this.obterPhoto();
+    } else {
+      photo = "";
+    }
     let local = this.lp.obterLocal();
     let dataAgora = new Date();
-    this.dataString = dataAgora.toString();   
-    this.pendAlert = this.af.object('/pendAlertList/'+this.dataString);
+    this.dataString = dataAgora.toString();
+    this.pendAlert = this.af.object('/pendAlertList/' + this.dataString);
     this.pendAlert.set({
       date_alert: this.dataString,
       title_alert: this.form.value.title_alert,
@@ -64,7 +69,7 @@ export class EnviarAlertaPage {
       last_description: this.form.value.last_description,
       local_alert: 'local',
       url_photo: photo,
-      autor: autor      
+      autor: autor
     })
     // firebase.database().ref().child('/teste/').child(this.dataString).push({
     //   localizar: "local"
@@ -91,41 +96,68 @@ export class EnviarAlertaPage {
   //     console.log(err);
   //   });
   // }
-  takePicture() {
+  takePicture() {    
     var options: CameraOptions = {
       destinationType: 1,
       sourceType: 1,
       encodingType: 0,
-      quality:60,
+      quality: 60,
       allowEdit: false,
       saveToPhotoAlbum: false
-  };
+    };
 
-    this.camera.getPicture(options).then((imageData) => {    
-      var img = imageData;     //'data:image/jpeg;base64,' + 
+    this.camera.getPicture(options).then((imageData) => {
+      
+      this.img = imageData;
     }, (err) => {
-      // Handle error
-      alert(err);
+      alert("Erro ao tirar foto: "+err);
     });
+
+    const loading = this.loadingCtrl.create({
+      content: 'Carregando foto, aguarde...'
+    });
+    loading.present();
+
+    let storageRef = this.fb.storage().ref();
+    let fullPath = '/fotos/' + this.dataString + '.png';
+    let uploadTask = storageRef.child(fullPath).putString(this.img, 'base64');
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        this.urlPhoto = uploadTask.snapshot.downloadURL;
+      });
+    loading.dismiss();
   }
-  
 
-  //solução com o storage do FireBase (em andamento...)
-  public obterPhoto() {       
-      // let storageRef = this.fb.storage().ref();      
-      // let fullPath = '/fotos/' + this.dataString + '.png';
-      // let uploadTask = storageRef.child(fullPath).putString(fileToUpload, 'base64');
+  //solução com o storage do FireBase 
+  public obterPhoto() {
+  //   let storageRef = this.fb.storage().ref();
+  //   let fullPath = '/fotos/' + this.dataString + '.png';
+  //   let uploadTask = storageRef.child(fullPath).putString(this.img, 'base64');
 
-      // uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      // (error) => {
-      //   console.error(error);
-      // },
-      // () => {
-      //   this.url = uploadTask.snapshot.downloadURL;
-      //   this.save(contact);
-      // });    
-      return "http://res.cloudinary.com/dht8hrgql/image/upload/v1499814594/ImagensAlertas/3.jpg"
+  //   uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+  //     (error) => {
+  //       console.error(error);
+  //     },
+  //     () => {
+  //       this.urlPhoto = uploadTask.snapshot.downloadURL;
+  //     });
+     return this.urlPhoto
   }
   //fim solução 
 
+  public cancelar(){
+    if(this.urlPhoto){
+      let storageRef = this.fb.storage().ref();
+      let fullPath = '/fotos/' + this.dataString + '.png';      
+      storageRef.child(fullPath).delete();
+      this.navCtrl.setRoot(InCioPage);
+    } else{
+      this.navCtrl.setRoot(InCioPage);
+    }
+  }
 }
+

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { LocalizarProvider } from "../../providers/localizar/localizar";
 import { AcessarProvider } from "../../providers/acessar/acessar";
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database";
+import { AngularFireDatabase } from "angularfire2/database";
 
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { InCioPage } from '../in-cio/in-cio';
@@ -18,7 +18,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
   ]
 })
 export class CadastroPage {
-  user: FirebaseObjectObservable<any>;
+  user: any;
   //user: FirebaseListObservable<any>;
   preCoordenadas: any;
   coordenadas: any;

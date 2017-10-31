@@ -48,7 +48,7 @@ export class MyApp {
       } else {            
         this.userCadastrado = false;
         this.userOperador = false;
-      }
+      } 
       console.log("Tipo no app.component: " + this.type_user);
     });
     platform.ready().then(() => {

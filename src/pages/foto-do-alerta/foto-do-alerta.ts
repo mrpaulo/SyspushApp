@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database";
+//import { FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database";
 import { AcessarProvider } from "../../providers/acessar/acessar";
 
 @Component({
@@ -11,9 +11,9 @@ import { AcessarProvider } from "../../providers/acessar/acessar";
   ]
 })
 export class FotoDoAlertaPage {
-  public alerts: FirebaseListObservable<any>;
+  public alerts: any;
   public idAlert: any;
-  oneAlert: FirebaseObjectObservable<any>;
+  oneAlert: any;
   
     constructor(
       public navCtrl: NavController, 

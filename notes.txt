@@ -106,6 +106,9 @@ ionic cordova run android -lcs --address localhost
 *Build
 ionic cordova build android
 
+*Icone e Splash
+ionic cordova resources android
+
 #Commit 2 = salvando data e hora alerta e url_img de alerta
 #Commit 3 = Novo item editar alertas, retornando tipo no login, mexido enviar alerta foto
 #Commit 4 = arrumado codificação
@@ -142,6 +145,11 @@ Feito conforme dica no erro ->npm rebuild node-sass --force
 
 npm install @ionic/cloud-angular --save
 Feito página sobre, mudado img para aparecer no aparelho > build em branco no aparelho!
+#commit 7 com push funcionando, faltando só camera e bug no operador
+npm install firebase@latest --save
+npm install angularfire2@latest --save
+>> Varios erros, já que mudou como as coisas são acessadas na versão 5 do AngularFire! > https://github.com/angular/angularfire2/blob/master/docs/version-5-upgrade.md​
+>>Corrigindo erros... Tentativa de voltar como era feito antes porém no Git não consegui, depois de clonar e fazer os procedimentos ficou faltando um monte de coisas.
 
 
 

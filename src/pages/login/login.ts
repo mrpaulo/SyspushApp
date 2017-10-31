@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { CadastroPage } from '../cadastro/cadastro';
-import { FirebaseListObservable, AngularFireDatabase } from "angularfire2/database";
+import { AngularFireDatabase } from "angularfire2/database";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { AcessarProvider } from "../../providers/acessar/acessar";
 import { LocalizarProvider } from "../../providers/localizar/localizar";
@@ -21,9 +21,9 @@ import * as firebase from 'firebase/app';
   ]
 })
 export class LoginPage {
-  users: FirebaseListObservable<any>;
+  users:  any;
   tipoUser: any;
-  user: FirebaseListObservable<any>;
+  user:  any;
   form: FormGroup;
   hasError: boolean;
   errorMessage: string;

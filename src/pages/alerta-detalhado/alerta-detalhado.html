@@ -12,20 +12,20 @@
   <ion-card>
     <ion-list id="alertaDetalhado-list7" >
       <ion-item class="item-thumbnail-left"  >
-        <img [src]="oneAlert?.url_photo">
-         <h2>Título: {{oneAlert?.title_alert}}</h2> <!--(oneAlert | async)?.title_alerts -->
+        <img [src]="oneAlert.url_photo">
+         <h2>Título: {{oneAlert.title_alert}}</h2> 
         <p>{{oneAlert.date_hour}}</p>
 
         <div class="item item-body" id="alertaDetalhado-list-item-container7">
           <h2>Descrição:</h2>
           <div id="alertaDetalhado-markdown8" class="show-list-numbers-and-dots">
-            <p style="margin-top:0px;color:#000000;">{{oneAlert?.last_description}}</p>
+            <p style="margin-top:0px;color:#000000;">{{oneAlert.last_description}}</p>
           </div>
           <div id="alertaDetalhado-markdown9" class="show-list-numbers-and-dots">
-            <p style="margin-top:0px;color:#000000;">{{oneAlert?.penultimate_description}}</p>
+            <p style="margin-top:0px;color:#000000;">{{oneAlert.penultimate_description}}</p>
           </div>
           <div id="alertaDetalhado-markdown11" class="show-list-numbers-and-dots">
-            <p style="margin-top:0px;color:#000000;">{{oneAlert?.antepenultimate_description}}</p>
+            <p style="margin-top:0px;color:#000000;">{{oneAlert.antepenultimate_description}}</p>
           </div>          
         </div>
       </ion-item>
