@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, ActionSheetController } from 'ionic-angular';
 import { AcessarProvider } from "../../providers/acessar/acessar";
+import { AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 //import { FirebaseListObservable } from "angularfire2/database";
 
 @IonicPage()
@@ -14,8 +16,9 @@ import { AcessarProvider } from "../../providers/acessar/acessar";
 
 export class EditarAlertasPage {
   dataString: string;
-  url_img: any;
-  public alerts: any;
+  url_img: any;  
+  public alerts: AngularFireList<any>;
+  itens: Observable<any[]>;
 
   constructor(
     public navCtrl: NavController,
@@ -23,7 +26,11 @@ export class EditarAlertasPage {
     public ap: AcessarProvider,
     public actionSheetCtrl: ActionSheetController
   ) {
-    this.alerts = ap.listarAlertas();    
+    this.alerts = ap.listarAlertas();   
+    this.itens = this.alerts.snapshotChanges().map(changes => {
+      // Você pode acessar a key direto com o m.key em vez do m.payload.key
+      return changes.map(m => ({ key: m.key, alerta: m.payload.val() }));
+    })        
   }
 
   // ionViewDidLoad() {

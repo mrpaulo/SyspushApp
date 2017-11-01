@@ -4,6 +4,8 @@ import { AcessarProvider } from "../../providers/acessar/acessar";
 //import { FirebaseListObservable } from "angularfire2/database";
 import { FotoDoAlertaPage } from '../foto-do-alerta/foto-do-alerta';
 import { MapaPage } from '../mapa/mapa';
+import { AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
@@ -13,8 +15,9 @@ import { MapaPage } from '../mapa/mapa';
     AcessarProvider
   ]
 })
-export class AlertasPendPage {
-  public alerts: any;
+export class AlertasPendPage {  
+  public alerts: AngularFireList<any>;
+  itens: Observable<any[]>;
 
   constructor(
     public navCtrl: NavController,
@@ -23,6 +26,10 @@ export class AlertasPendPage {
     public actionSheetCtrl: ActionSheetController    
   ) {
     this.alerts = ap.listarPendAlertas();
+    this.itens = this.alerts.snapshotChanges().map(changes => {
+      // Você pode acessar a key direto com o m.key em vez do m.payload.key
+      return changes.map(m => ({ key: m.key, alerta: m.payload.val() }));
+    }) 
     
   }  
 

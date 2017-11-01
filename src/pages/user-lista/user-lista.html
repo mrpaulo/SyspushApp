@@ -9,7 +9,7 @@
 </ion-header>
 <ion-content padding id="page13">
   <ion-list id="histRicoAlerta-list2">
-    <ion-item color="none" *ngFor="let user of users | async " (click)="showOptions(user.key, user.usuario.name, user.usuario.email, user.usuario.cellphone, user.usuario.type_user)">
+    <ion-item color="none" *ngFor="let user of itens | async " (click)="showOptions(user.key, user.usuario.name, user.usuario.email, user.usuario.cellphone, user.usuario.type_user)">
       <h2>Nome: {{user.usuario.name}}</h2>      
       <p>E-mail: {{user.usuario.email}}</p>
       <p>Celular: {{user.usuario.cellphone}}</p>       

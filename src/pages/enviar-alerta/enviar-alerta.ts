@@ -71,7 +71,7 @@ export class EnviarAlertaPage {
       title_alert: this.form.value.title_alert,
       type_alert: this.form.value.type_alert,
       last_description: this.form.value.last_description,
-      local_alert: 'local',
+      local_alert: "-29.639410, -50.787776",
       url_photo: photo,
       autor: this.autor
     })

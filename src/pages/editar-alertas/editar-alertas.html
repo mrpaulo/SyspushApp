@@ -10,20 +10,20 @@
 </ion-header>
 <ion-content padding>
   <ion-list id="histRicoAlerta-list2">
-    <ion-item color="none" *ngFor="let alert of alerts | async " (click)="showOptions(alert.$key, alert.title_alert, alert.type_alert, alert.date_alert, alert.last_description, alert.url_photo, alert.local_alert, alert.penultimate_description, alert.antepenultimate_description)">
+    <ion-item color="none" *ngFor="let alert of itens | async " (click)="showOptions(alert.key, alert.alerta.title_alert, alert.alerta.type_alert, alert.alerta.date_alert, alert.alerta.last_description, alert.alerta.url_photo, alert.alerta.local_alert, alert.alerta.penultimate_description, alert.alerta.antepenultimate_description)">
       <ion-thumbnail item-left>
-        <img [src]="'/assets/' + alert.url_img">
+        <img [src]="'/assets/' + alert.alerta.url_img">
       </ion-thumbnail>
-      <h2>Título: {{alert.title_alert}}</h2>
-      <p *ngIf="alert.type_alert=='1'">Tipo Alerta: Grave (Vermelho)</p>
-      <p *ngIf="alert.type_alert=='2'">Tipo Alerta: Médio (Amarelo)</p>
-      <p *ngIf="alert.type_alert=='3'">Tipo Alerta: Leve (Verde)</p>     
-      <p>Data e hora: {{alert.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>
-      <p>Ultima Descrição: {{alert.last_description}}</p>
-      <p>Penultima Descrição: {{alert.penultimate_description}}</p>
-      <p>Antepenultima Descrição: {{alert.antepenultimate_description}}</p>
-      <p>Url Foto: {{alert.url_photo}}</p>
-      <p>Coordenadas: {{alert.local_alert}}</p>
+      <h2>Título: {{alert.alerta.title_alert}}</h2>
+      <p *ngIf="alert.alerta.type_alert=='1'">Tipo Alerta: Grave (Vermelho)</p>
+      <p *ngIf="alert.alerta.type_alert=='2'">Tipo Alerta: Médio (Amarelo)</p>
+      <p *ngIf="alert.alerta.type_alert=='3'">Tipo Alerta: Leve (Verde)</p>     
+      <p>Data e hora: {{alert.alerta.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>
+      <p>Ultima Descrição: {{alert.alerta.last_description}}</p>
+      <p>Penultima Descrição: {{alert.alerta.penultimate_description}}</p>
+      <p>Antepenultima Descrição: {{alert.alerta.antepenultimate_description}}</p>
+      <p>Url Foto: {{alert.alerta.url_photo}}</p>
+      <p>Coordenadas: {{alert.alerta.local_alert}}</p>
     </ion-item>
   </ion-list>
 </ion-content>

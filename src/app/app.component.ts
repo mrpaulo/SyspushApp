@@ -31,7 +31,7 @@ export class MyApp {
   userOperador = false;
   tipo: string;
 
-  pages: Array<{ title: string, component: string, openNew: boolean, visible: boolean }>;
+  pages: Array<{ title: string, component: any, openNew: boolean, visible: boolean }>;
   userType: number = 0; // Anonimo
 
 
@@ -59,19 +59,19 @@ export class MyApp {
     // userType = 2 - usuario administrador
     this.pages = [
       // Visivel para todos
-      { title: 'Início', component: 'InCioPage', openNew: false, visible: this.userType >= 0 },
-      { title: 'Histórico de Alertas', component: 'HistRicoAlertaPage', openNew: false, visible: this.userType >= 0 },
+      { title: 'Início', component: InCioPage, openNew: false, visible: this.userType >= 0 },
+      { title: 'Histórico de Alertas', component: HistRicoAlertaPage, openNew: false, visible: this.userType >= 0 },
       // Visivel para usuarios comuns e administradores
-      { title: 'Enviar Alerta', component: 'EnviarAlertaPage', openNew: false, visible: this.userType >= 1 },
+      { title: 'Enviar Alerta', component: EnviarAlertaPage, openNew: false, visible: this.userType >= 1 },
       // Visivel para todos
-      { title: 'Configurações', component: 'ConfiguraEsPage', openNew: false, visible: this.userType >= 0 },      
-      { title: 'Login', component: 'LoginPage', openNew: false, visible: this.userType >= 0 },      
+      { title: 'Configurações', component: ConfiguraEsPage, openNew: false, visible: this.userType >= 0 },      
+      { title: 'Login', component: LoginPage, openNew: false, visible: this.userType >= 0 },      
       // Visivel somente para administradores
-      { title: 'Editar Usuários', component: 'UserListaPage', openNew: false, visible: this.userType == 2 },
-      { title: 'Alertas Pendentes', component: 'AlertasPendPage', openNew: false, visible: this.userType == 2 },
-      { title: 'Editar Alertas', component: 'EditarAlertasPage', openNew: false, visible: this.userType == 2 },
+      { title: 'Editar Usuários', component: UserListaPage, openNew: false, visible: this.userType == 2 },
+      { title: 'Alertas Pendentes', component: AlertasPendPage, openNew: false, visible: this.userType == 2 },
+      { title: 'Editar Alertas', component: EditarAlertasPage, openNew: false, visible: this.userType == 2 },
       // Visivel para todos
-      { title: 'Sobre', component: 'SobrePage', openNew: true, visible: this.userType >= 0 },  
+      { title: 'Sobre', component: SobrePage, openNew: false, visible: this.userType >= 0 },  
     ];
   }
 

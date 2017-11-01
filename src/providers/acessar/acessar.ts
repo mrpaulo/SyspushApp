@@ -45,10 +45,7 @@ export class AcessarProvider {
   }
 
   listarPendAlertas() {
-    return this.af.list('/pendAlertList', ref => ref.limitToLast(30)).snapshotChanges().map(changes => {
-      // Você pode acessar a key direto com o m.key em vez do m.payload.key
-      return changes.map(m => ({ key: m.key, alerta: m.payload.val() }));
-    });
+    return this.af.list('/pendAlertList', ref => ref.limitToLast(30));
   }
 
   listarUser() {
@@ -70,15 +67,12 @@ export class AcessarProvider {
   }
 
   listarAlertas() {
-    return this.af.list('/alertList', ref => ref.limitToLast(30)).snapshotChanges().map(changes => {
-      // Você pode acessar a key direto com o m.key em vez do m.payload.key
-      return changes.map(m => ({ key: m.key, alerta: m.payload.val() }));
-    });
+    return this.af.list('/alertList', ref => ref.limitToLast(30));
   }
 
   public getUserType() {
     // Pego o tipo do usuario logado
-    return this.af.object('/users' + this.angularFireAuth.auth.currentUser.uid).snapshotChanges().map(changes => {
+    return this.af.object('/users/' + this.angularFireAuth.auth.currentUser.uid).snapshotChanges().map(changes => {
         // retorno apenas a propriedade userType
         return changes.payload.val().type_user;
       });

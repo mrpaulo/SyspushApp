@@ -5,6 +5,7 @@ import { FotoDoAlertaPage } from '../foto-do-alerta/foto-do-alerta';
 import { MapaPage } from '../mapa/mapa';
 import { AcessarProvider } from "../../providers/acessar/acessar";
 import { Observable } from 'rxjs/Observable';
+import { AngularFireList } from 'angularfire2/database';
 //import { FirebaseListObservable } from "angularfire2/database";
 
 @Component({
@@ -15,13 +16,19 @@ import { Observable } from 'rxjs/Observable';
   ]
 })
 export class HistRicoAlertaPage {
-  public alerts: Observable<any>;
+  public alerts: AngularFireList<any>;
+  itens: Observable<any[]>;
+
 
   constructor(
     public navCtrl: NavController, 
     public ap: AcessarProvider    
   ) {
-    this.alerts = ap.listarAlertas();    
+    this.alerts = ap.listarAlertas();
+    this.itens = this.alerts.snapshotChanges().map(changes => {
+      // Você pode acessar a key direto com o m.key em vez do m.payload.key
+      return changes.map(m => ({ key: m.key, alerta: m.payload.val() }));
+    })     
   }
 
   goToAlertaDetalhado(params) {
