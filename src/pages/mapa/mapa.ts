@@ -25,22 +25,24 @@ export class MapaPage {
 
   constructor(public navCtrl: NavController, private googleMaps: GoogleMaps, public viewCtrl: ViewController, public elRef: ElementRef, public platform: Platform, public ap: AcessarProvider, public navParams: NavParams) {
     platform.ready().then(() => {
-      // let idAlert = this.navParams.get("key");     
+      // Recupero o alerta que veio da tela anterior
+      this.item = this.navParams.data.alerta;
+      // let idAlert = this.navParams.get("key");
       // var oneAlert = ap.especificoAlerta(idAlert);
-      // oneAlert.snapshotChanges().map(snapshot => 
-      //    this.item = snapshot.payload.val()        
+      // oneAlert.snapshotChanges().map(snapshot =>
+      //    this.item = snapshot.payload.val()
       // );
-      // this.coordenadas = this.item.local_alert;
-      // this.titulo = this.item.title_alert;
+      this.coordenadas = this.item.local_alert;
+      this.titulo = this.item.title_alert;
       this.initMap();
     });
   }
- 
+
   initMap() {
 
-    const [first, second] = this.coordenadas.split(', ');    
+    const [first, second] = this.coordenadas.split(', ');
     this.latitude = +first;// o + transforma para numero
-    this.longitude = +second;    
+    this.longitude = +second;
 
     let element = this.mapElement.nativeElement;
     let mapOptions: GoogleMapOptions = {
@@ -123,7 +125,7 @@ export class MapaPage {
   //   });
   //    }
 
-  goToFotoDoAlerta() {    
+  goToFotoDoAlerta() {
     this.navCtrl.push(FotoDoAlertaPage, {
       key: this.navParams.get("key")
     });

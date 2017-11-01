@@ -4,6 +4,7 @@ import { AlertaDetalhadoPage } from '../alerta-detalhado/alerta-detalhado';
 import { FotoDoAlertaPage } from '../foto-do-alerta/foto-do-alerta';
 import { MapaPage } from '../mapa/mapa';
 import { AcessarProvider } from "../../providers/acessar/acessar";
+import { Observable } from 'rxjs/Observable';
 //import { FirebaseListObservable } from "angularfire2/database";
 
 @Component({
@@ -14,7 +15,7 @@ import { AcessarProvider } from "../../providers/acessar/acessar";
   ]
 })
 export class HistRicoAlertaPage {
-  public alerts: any;
+  public alerts: Observable<any>;
 
   constructor(
     public navCtrl: NavController, 

@@ -150,9 +150,11 @@ npm install firebase@latest --save
 npm install angularfire2@latest --save
 >> Varios erros, já que mudou como as coisas são acessadas na versão 5 do AngularFire! > https://github.com/angular/angularfire2/blob/master/docs/version-5-upgrade.md​
 >>Corrigindo erros... Tentativa de voltar como era feito antes porém no Git não consegui, depois de clonar e fazer os procedimentos ficou faltando um monte de coisas.
-
-
-
+>> criado new branch para tentar resolver problema.
+git branch angularfire2V5
+git checkout angularfire2V5
+git commit -m "Commit 8[issue angularfire2V5]"
+git push origin angularfire2V5
 
 
 

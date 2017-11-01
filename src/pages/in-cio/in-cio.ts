@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { AlertaDetalhadoPage } from '../alerta-detalhado/alerta-detalhado';
@@ -18,7 +19,8 @@ export class InCioPage {
   tipoUser: void;
 
   users: any;
-  public alerts: any;
+  // não pode ser apenas any tem que ser Observable<any>
+  public alerts: Observable<any>;
   public retorno: any;
 
   constructor(
@@ -27,7 +29,6 @@ export class InCioPage {
     private push: Push, public platform: Platform
   ) {
     this.alerts = ap.ultimoAlerta();    
-    ap.verificaUser();
   }
   //inicio push
   ngOnInit() {

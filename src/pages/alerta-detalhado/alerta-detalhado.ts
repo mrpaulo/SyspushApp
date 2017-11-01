@@ -14,25 +14,34 @@ import { AcessarProvider } from "../../providers/acessar/acessar";
 export class AlertaDetalhadoPage {
   public alerts: any;
   public idAlert: any;
-  oneAlert: any;
+  // o objeto estava nulo com isso não conseguia acessar as propriedades até serem recuperadas do firebase
+  // coloquei o "{}" para iniciar o objeto
+  oneAlert: any = {};
   title_alerts: any;
 
     constructor(
-      public navCtrl: NavController, 
+      public navCtrl: NavController,
       public ap: AcessarProvider,
-      public navParams: NavParams    
+      public navParams: NavParams
     ) {
       this.idAlert = this.navParams.get("key"); 
-      this.oneAlert = ap.especificoAlerta(this.idAlert);
+      // tem que fazer o subscribe para pegar o objeto
+      const subscribe = ap.especificoAlerta(this.idAlert).subscribe((alerta: any) => {
+        this.oneAlert = alerta.payload.val();
+
+        // sempre faça o unsubscribe quando não precisar ficar recebendo os dados do item quando ouver modificações
+        subscribe.unsubscribe();
+      });
       console.log("idAlert2: "+ this.idAlert);
       //this.oneAlert.snapshotChanges().map(alert => this.oneAlert = alert.val());
       // this.oneAlert.subscribe(snapshot => {
-      //   this.oneAlert = snapshot.val();        
-      // });                
-    }  
-  goToMapa() {    
+      //   this.oneAlert = snapshot.val();
+      // });
+    }
+  goToMapa() {
+    // Quando vc tiver o elemento passa ele em vez de passar o Id
     this.navCtrl.push(MapaPage, {
-      key: this.idAlert
+      alerta: this.oneAlert
     });
   }
 }

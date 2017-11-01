@@ -10,13 +10,13 @@
 </ion-header>
 <ion-content padding id="page2">
   <ion-list id="histRicoAlerta-list2">
-    <ion-item color="none" *ngFor="let alert of alerts | async " (click)="goToAlertaDetalhado(alert.$key)" id="histRicoAlerta-list-item11">
+    <ion-item color="none" *ngFor="let alert of alerts | async " (click)="goToAlertaDetalhado(alert.key)" id="histRicoAlerta-list-item11">
       <ion-thumbnail item-left>
-        <img [src]="'assets/' + alert.url_img">
+        <img [src]="'assets/' + alert.alerta.url_img">
       </ion-thumbnail>      
-      <h2>Título: {{alert.title_alert}}</h2>      
-      <p>Data e hora: {{alert.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>
-      <p>Descrição: {{alert.last_description}}</p> 
+      <h2>Título: {{alert.alerta.title_alert}}</h2>      
+      <p>Data e hora: {{alert.alerta.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>
+      <p>Descrição: {{alert.alerta.last_description}}</p> 
     </ion-item>
   </ion-list>
 </ion-content>

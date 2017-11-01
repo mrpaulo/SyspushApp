@@ -18,17 +18,22 @@ import { AlertasPendPage } from "../pages/alertas-pend/alertas-pend";
 import { EditarAlertasPage } from "../pages/editar-alertas/editar-alertas";
 import { AcessarProvider } from "../providers/acessar/acessar";
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  type_user: boolean;
+  type_user: Observable<any>;;
   @ViewChild(Nav) navCtrl: Nav;
   rootPage: any = InCioPage;
   userCadastrado = false;
   userOperador = false;
   tipo: string;
+
+  pages: Array<{ title: string, component: string, openNew: boolean, visible: boolean }>;
+  userType: number = 0; // Anonimo
+
 
   constructor(
     platform: Platform,
@@ -37,26 +42,77 @@ export class MyApp {
     public alertCtrl: AlertController,
     public ap: AcessarProvider,
     private angularFireAuth: AngularFireAuth
-  ) {
-    this.angularFireAuth.authState.subscribe(user => {
-      if (user) {
-        this.userCadastrado = true;
-        this.type_user = this.ap.verificaUser().oper;
-        if (this.type_user) {            
-          this.userOperador = true;         
-        }
-      } else {            
-        this.userCadastrado = false;
-        this.userOperador = false;
-      } 
-      console.log("Tipo no app.component: " + this.type_user);
-    });
+  ) { 
+    this.handlerUserType();
+    this.createMenu();   
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.         
       statusBar.styleDefault();
-      splashScreen.hide();
-      //this.initPush();       
+      splashScreen.hide();            
+    });
+  }
+
+  createMenu() {
+    // userType = 0 - usuário anonimo
+    // userType = 1 - usuario comum
+    // userType = 2 - usuario administrador
+    this.pages = [
+      // Visivel para todos
+      { title: 'Início', component: 'InCioPage', openNew: false, visible: this.userType >= 0 },
+      { title: 'Histórico de Alertas', component: 'HistRicoAlertaPage', openNew: false, visible: this.userType >= 0 },
+      // Visivel para usuarios comuns e administradores
+      { title: 'Enviar Alerta', component: 'EnviarAlertaPage', openNew: false, visible: this.userType >= 1 },
+      // Visivel para todos
+      { title: 'Configurações', component: 'ConfiguraEsPage', openNew: false, visible: this.userType >= 0 },      
+      { title: 'Login', component: 'LoginPage', openNew: false, visible: this.userType >= 0 },      
+      // Visivel somente para administradores
+      { title: 'Editar Usuários', component: 'UserListaPage', openNew: false, visible: this.userType == 2 },
+      { title: 'Alertas Pendentes', component: 'AlertasPendPage', openNew: false, visible: this.userType == 2 },
+      { title: 'Editar Alertas', component: 'EditarAlertasPage', openNew: false, visible: this.userType == 2 },
+      // Visivel para todos
+      { title: 'Sobre', component: 'SobrePage', openNew: true, visible: this.userType >= 0 },  
+    ];
+  }
+
+  openPage(page) {
+    // Aqui é possivel fazer outros tipos de logica, como por exemplo o codigo comentado
+    // if (page.component == 'SigninPage' || page.component == 'SignupPage') {
+    //   this.nav.push(page.component);
+    // } else if (page.component == 'NOME_DA_PAGINA') {
+    //   // Fazer qualquer tipo de ação como por exemplo chamar um metodo de logout
+    //   // this.accountProvider.signOut();
+    // } else {
+    //   this.nav.setRoot(page.component);
+    // }
+
+    if (page.openNew) {
+      this.navCtrl.push(page.component);
+    } else {
+      this.navCtrl.setRoot(page.component);
+    }
+  }
+
+  handlerUserType() {
+    // Faço um subscribe no estado do usuario para saber quando ele está logado.
+    // Ao criar um conta o usuario é automaticamente autenticado no firebase
+    this.angularFireAuth.authState.subscribe(user => {
+      if (user) { // Usuario logado
+        // Faço um subscribe para pegar o tipo do usuario
+        let userTypeSubscribe = this.ap.getUserType().subscribe((userType: number) => {
+          // passo para a propriedade
+          this.userType = userType;
+          // Recrio o menu para exibir o que esse tipo de usuario pode ver
+          this.createMenu();
+          // Finalizo o subscribe pois não preciso ficar monitorando o tipo do usuario.
+          userTypeSubscribe.unsubscribe();
+        })
+      } else { // Usuario deslogado
+        // Volto para o tipo de usuario anonimo
+        this.userType = 0;
+        // Recrio o menu para exibir o que esse tipo de usuario pode ver
+        this.createMenu();
+      }
     });
   }
   

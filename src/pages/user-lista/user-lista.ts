@@ -1,7 +1,9 @@
 import { IonicPage, NavController, AlertController, ActionSheetController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { AcessarProvider } from "../../providers/acessar/acessar";
+import { Observable } from 'rxjs/Observable';
 //import { FirebaseListObservable } from "angularfire2/database";
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 
 @IonicPage()
 @Component({
@@ -12,7 +14,8 @@ import { AcessarProvider } from "../../providers/acessar/acessar";
   ]
 })
 export class UserListaPage {
-users:  any;
+users:  AngularFireList<any>;
+itens: Observable<any[]>;
 
   constructor(
     public navCtrl: NavController,
@@ -20,7 +23,11 @@ users:  any;
     public ap: AcessarProvider, 
     public actionSheetCtrl: ActionSheetController    
   ) {
-    this.users = ap.listarUser();       
+    this.users = ap.listarUser();
+    this.itens = this.users.snapshotChanges().map(changes => {
+      // Você pode acessar a key direto com o m.key em vez do m.payload.key
+      return changes.map(m => ({ key: m.key, usuario: m.payload.val() }));
+    })       
   }
   // ionViewDidLoad() {
   //   console.log('ionViewDidLoad UserListaPage');

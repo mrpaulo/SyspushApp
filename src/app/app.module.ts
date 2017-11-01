@@ -74,7 +74,7 @@ const firebaseConfig = {
     CadastroPage,
     UserListaPage,
     AlertasPendPage,
-    EditarAlertasPage   
+    EditarAlertasPage
   ],
   imports: [
     BrowserModule,
@@ -109,8 +109,8 @@ const firebaseConfig = {
     AuthProvider,
     Geolocation,
     GoogleMaps,
-    AngularFireAuth, 
-    Push             
+    AngularFireAuth,
+    Push
   ]
 })
 export class AppModule {}

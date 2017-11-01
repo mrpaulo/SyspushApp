@@ -21,6 +21,7 @@ import * as firebase from 'firebase/app';
   ]
 })
 export class EnviarAlertaPage {
+  autor: string;
   img: any;
 
   urlPhoto: string;
@@ -52,7 +53,10 @@ export class EnviarAlertaPage {
   }
 
   sendAlert() {
-    let autor = this.ap.verificaUser().e_mail;
+    var usuarioAtual = firebase.auth().currentUser;     
+    if (usuarioAtual) {
+      this.autor = usuarioAtual.email;
+    }
     if (this.img) {
       var photo = this.obterPhoto();
     } else {
@@ -69,7 +73,7 @@ export class EnviarAlertaPage {
       last_description: this.form.value.last_description,
       local_alert: 'local',
       url_photo: photo,
-      autor: autor
+      autor: this.autor
     })
     // firebase.database().ref().child('/teste/').child(this.dataString).push({
     //   localizar: "local"

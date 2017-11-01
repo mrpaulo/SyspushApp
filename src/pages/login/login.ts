@@ -21,9 +21,9 @@ import * as firebase from 'firebase/app';
   ]
 })
 export class LoginPage {
-  users:  any;
+  users: any;
   tipoUser: any;
-  user:  any;
+  user: any;
   form: FormGroup;
   hasError: boolean;
   errorMessage: string;
@@ -42,19 +42,21 @@ export class LoginPage {
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private auth: AuthProvider
-  ){
+  ) {
 
     this.form = this.formBuilder.group({
       email: [''],
       password: ['']
     });
-    
-    this.e_mail = ap.verificaUser().e_mail;
-    if (this.e_mail) {
-      this.flag = false;      
+
+    var usuarioAtual = firebase.auth().currentUser;
+    if (usuarioAtual) {
+      this.e_mail = usuarioAtual.email;
+      this.flag = false;
+    } else {
+      console.log("Sem usuário logado!");
     }
-       
-  } 
+  }
 
   sair() {
     firebase.auth().signOut().then(function () {

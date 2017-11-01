@@ -35,3 +35,148 @@ initPush() {
       <ion-item hideWhen="type_user.type_user==0 || type_user.type_user==1" color="none" menuClose="" on-click="goToEditarAlertas()" id="menu-list-item6">
         Editar Alertas
       </ion-item>
+
+
+  //verificaUser() {
+  // firebase.auth().onAuthStateChanged(function (logadoObs) {
+  //   if (logadoObs) {
+  //     console.log("usuário logado no observable: ");
+  //     //this.key = logadoObs.uid;
+  //     //console.log("email observable: " + logadoObs.email);
+  //     // this.usuario = logadoObs;
+  //     //this.e_mail = logadoObs.email;
+  //   } else {
+  //     console.log("Sem usuário logado no observable!");
+  //   }
+  // });
+  //this.tipoUser(this.usuario);
+
+
+
+  // tipoUser(item: any) {
+  //   this.logEmail = item.email;
+  //   this.af.list('/users', { preserveSnapshot: true })
+  //     .subscribe(snapshots => {
+  //       snapshots.forEach(snapshot => {
+  //         if (snapshot.val().email == this.logEmail) {
+  //           this.tipo = snapshot.val().type_user;
+  //           // console.log("Name: " + this.tipo);
+  //           // console.log("type: " + snapshot.val().type_user);
+  //           // console.log("email: " + snapshot.val().email);
+  //         }
+  //         // console.log("type: " + snapshot.val().type_user);
+  //         // console.log("email: " + snapshot.val().email);
+  //         // console.log("tipao: " + this.tipo);
+  //         // console.log("emailLogado: " + this.logEmail);
+  //       });
+  //     })
+  //   return this.tipo
+  // }
+
+  // currentUserId(): string {
+  //   return this.authenticated ? this.authState.uid : 'fs3SoRYAgEUu3BSReMvlpRvkuIw2';
+  // }
+
+       verificaUser() {
+
+    var usuarioAtual = firebase.auth().currentUser;
+    if (usuarioAtual) {
+      console.log("usuário logado!");
+
+      this.user.e_mail = usuarioAtual.email;
+      //this.user.id = usuarioAtual.uid;
+      // this.af.object('/users/' + usuarioAtual.uid).subscribe(user => this.user.oper = user.oper);
+      console.log("userId: " + usuarioAtual.uid);
+      //console.log("Operador 1: " +  this.user.oper);
+    } else {
+      console.log("Sem usuário logado!");
+    }
+
+    this.user.type_user = 0; //usuario anonimo = 0
+    this.user.oper = false;
+    if (this.angularFireAuth.auth.currentUser) {      
+      //this.af.object('/users/' + this.angularFireAuth.auth.currentUser.uid).subscribe(user => this.user.oper = user.oper); // aqui retornou false
+      //this.af.object('/users/' + this.angularFireAuth.auth.currentUser.uid).snapshotChanges().map(user => this.user.oper = user.payload.val().oper); // aqui retornou false
+      //this.af.object('/users/' + this.angularFireAuth.auth.currentUser.uid).snapshotChanges().map(m => ({ alerta: m.payload.val().oper})); // aqui retornou false
+      //this.af.object('/users/' + this.angularFireAuth.auth.currentUser.uid).snapshotChanges().map(user => {this.user.oper = user.payload.val().oper; return user.payload.val()}).subscribe(item => console.log("Variavel aqui: "+item.oper));//aqui retornou true
+      // this.af.object('/users/' + this.angularFireAuth.auth.currentUser.uid).snapshotChanges().map(changes => {
+      //   // Você pode acessar a key direto com o m.key em vez do m.payload.key
+      //   return changes.map(m => ({ key: m.key, alerta: m.payload.val() }));
+      // }); // aqui não soube testar
+      this.user.oper = this.af.object('/users/' + this.angularFireAuth.auth.currentUser.uid).snapshotChanges().map(user => {return user.payload.val().oper});// aqui retornou [object Object]
+    }
+    console.log("Operador 2: " + this.user.oper);
+    return this.af.object('/users/' + this.angularFireAuth.auth.currentUser.uid).snapshotChanges().map(user => {return user.payload.val().oper});// aqui retornou [object Object]
+  }
+
+  //appcomponent
+  constructor(
+    platform: Platform,
+    statusBar: StatusBar,
+    splashScreen: SplashScreen,
+    public alertCtrl: AlertController,
+    public ap: AcessarProvider,
+    private angularFireAuth: AngularFireAuth
+  ) {
+    this.angularFireAuth.authState.subscribe(user => {
+      if (user) {
+        this.userCadastrado = true;
+        this.ap.verificaUser().subscribe(oper => { this.type_user = oper; });
+         
+        if (this.type_user) {            
+          this.userOperador = true;         
+        }
+      } else {            
+        this.userCadastrado = false;
+        this.userOperador = false;
+      } 
+      console.log("Tipo no app.component: " + this.type_user);
+    });
+    platform.ready().then(() => {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.         
+      statusBar.styleDefault();
+      splashScreen.hide();            
+    });
+  }
+
+  //app html
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Menu
+      </ion-title>      
+    </ion-toolbar>
+  </ion-header>
+  <ion-content id="side-menu21">
+    <ion-list id="menu-list1">
+      <ion-item color="none" menuClose="" on-click="goToInCio()" id="menu-list-item1">
+        Início
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToHistRicoAlerta()" id="menu-list-item2">
+        Histórico de Alertas
+      </ion-item>
+      <ion-item [hidden]="!userCadastrado" color="none" menuClose="" on-click="goToEnviarAlerta()" id="menu-list-item3">
+        Enviar Alerta
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToConfiguraEs()" id="menu-list-item4">
+        Configurações
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToLogin()" id="menu-list-item5">
+        Login
+      </ion-item>
+      <ion-item [hidden]="!userOperador" color="none" menuClose="" on-click="goToUserList()" id="menu-list-item4">
+        Editar Usuários
+      </ion-item>
+      <ion-item [hidden]="!userOperador" color="none" menuClose="" on-click="goToAlertPend()" id="menu-list-item5">
+        Alertas Pendentes
+      </ion-item>
+      <ion-item [hidden]="!userOperador" color="none" menuClose="" on-click="goToEditarAlertas()" id="menu-list-item6">
+        Editar Alertas
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToSobre()" id="menu-list-item6">
+        Sobre
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>

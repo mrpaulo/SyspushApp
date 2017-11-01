@@ -11,16 +11,17 @@
 <ion-content padding id="page1">
 
   <ion-list id="alertaDetalhado-list7" *ngFor="let alert of alerts | async">
+    <!-- Se voce definiu no map que o conteudo vai ficar em alerta (alerta: m.payload.val()), voce precisa acessar com o alert.alerta -->
     <ion-card>
       <ion-item class="item-thumbnail-left">
-        <img style="width: 120px; height: 120px; margin: auto;" [src]="'assets/' + alert.url_img">
+        <img style="width: 120px; height: 120px; margin: auto;" [src]="'assets/' + alert.alerta.url_img">
         <p>Título:</p>
-        <h1>{{alert.title_alert}}</h1>
-        <p>Data e hora: {{alert.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>
+        <h1>{{ alert.alerta.title_alert }}</h1>
+        <p>Data e hora: {{alert.alerta.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>
         <div class="item item-body" id="alertaDetalhado-list-item-container7">
           <h2>Descrição:</h2>
           <div id="alertaDetalhado-markdown8" class="show-list-numbers-and-dots">
-            <h2>{{alert.last_description}}</h2>            
+            <h2>{{alert.alerta.last_description}}</h2>
           </div>
         </div>
       </ion-item>
@@ -28,10 +29,10 @@
     <button id="inCio-button1" ion-button color="positive" block (click)="goToAlertaDetalhado(alert.key)">
     Detalhes
   </button>
-    <button id="inCio-button2" ion-button color="positive" block on-click="goToFotoDoAlerta(alert.$key)">
+    <button id="inCio-button2" ion-button color="positive" block on-click="goToFotoDoAlerta(alert.key)">
     Ver foto
   </button>
-    <button id="inCio-button3" ion-button color="positive" block on-click="goToMapa(alert.$key)">
+    <button id="inCio-button3" ion-button color="positive" block on-click="goToMapa(alert.key)">
     Ver Localização
   </button>
   </ion-list>
