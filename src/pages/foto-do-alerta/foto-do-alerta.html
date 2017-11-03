@@ -8,13 +8,11 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding id="page7" >
-  <div style="width:100%;height:220px;margin:0px 0px;line-height:250px;background-color:#e8ebef;text-align:center;">
-    <img [src]="oneAlert?.url_photo">
-  </div>
-  <div style="margin-top: 75px;">
-  <h1 id="fotoDoAlerta-heading1" style="color:#000000;">
-    {{oneAlert?.title_alert}}
-  </h1>
-</div>
+<ion-content padding id="page7">
+  <ion-item class="item-thumbnail-left">    
+    <img [src]="oneAlert.url_photo">   
+    <h1 id="fotoDoAlerta-heading1" style="color:#000000;">
+      Título: {{oneAlert.title_alert}}
+    </h1>   
+  </ion-item>
 </ion-content>

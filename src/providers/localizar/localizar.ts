@@ -25,15 +25,15 @@ export class LocalizarProvider {
            console.log(err);
       }
     );
-    console.log('lat: ' + this.lat); 
-    console.log('lng: ' + this.lng);       
-    console.log('Coordenadas: ' + this.latLng);
-    let coordenadas: any = {};
-    coordenadas.latitude = this.lat;
-    coordenadas.longitude = this.lng;
-    console.log('Coordenadas: ' + coordenadas);
+    // console.log('lat: ' + this.lat); 
+    // console.log('lng: ' + this.lng);       
+    // console.log('Coordenadas: ' + this.latLng);
+    // let coordenadas: any = {};
+    // coordenadas.latitude = this.lat;
+    // coordenadas.longitude = this.lng;
+   // console.log('Coordenadas: ' + coordenadas);
     // this.latLng.toString(); JSON.stringify(this.latLng); JSON.parse(this.latLng);
-    return this.lat//"-29.639410, -50.787776";
+    return "-29.639410, -50.787776"//this.lat//"-29.639410, -50.787776";
   } //cordova plugin add phonegap-plugin-push --variable SENDER_ID=105371248958 --save
 
 }

@@ -12,7 +12,7 @@
   <ion-list id="histRicoAlerta-list2">
     <ion-item color="none" *ngFor="let alert of itens | async " (click)="goToAlertaDetalhado(alert.key)" id="histRicoAlerta-list-item11">
       <ion-thumbnail item-left>
-        <img [src]="'assets/' + alert.alerta.url_img">
+        <img [src]="'assets/' + alert.alerta.url_img"> 
       </ion-thumbnail>      
       <h2>Título: {{alert.alerta.title_alert}}</h2>      
       <p>Data e hora: {{alert.alerta.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>

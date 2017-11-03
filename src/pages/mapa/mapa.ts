@@ -15,32 +15,31 @@ import { AcessarProvider } from '../../providers/acessar/acessar';
   templateUrl: 'mapa.html'
 })
 export class MapaPage {
-  item: any;
+  @ViewChild('myMap') mapElement: ElementRef;
+  item: any = {};
   longitude: number;
   latitude: number;
-  titulo: any;
-  @ViewChild('myMap') mapElement: ElementRef;
+  titulo: string; 
   map: GoogleMap;
   coordenadas: any;
+  esconderSempre = true;
 
   constructor(public navCtrl: NavController, private googleMaps: GoogleMaps, public viewCtrl: ViewController, public elRef: ElementRef, public platform: Platform, public ap: AcessarProvider, public navParams: NavParams) {
     platform.ready().then(() => {
-      // Recupero o alerta que veio da tela anterior
-      this.item = this.navParams.data.alerta;
-      // let idAlert = this.navParams.get("key");
-      // var oneAlert = ap.especificoAlerta(idAlert);
-      // oneAlert.snapshotChanges().map(snapshot =>
-      //    this.item = snapshot.payload.val()
-      // );
-      this.coordenadas = this.item.local_alert;
-      this.titulo = this.item.title_alert;
-      this.initMap();
+      
+      let idAlert = this.navParams.get("key");  
+      const subscribe = ap.especificoAlerta(idAlert).subscribe((alerta: any) => {        
+        this.titulo = alerta.payload.val().title_alert;
+        this.coordenadas = alerta.payload.val().local_alert;
+        this.initMap(this.titulo, this.coordenadas);        
+        subscribe.unsubscribe();
+      });            
     });
   }
 
-  initMap() {
-
-    const [first, second] = this.coordenadas.split(', ');
+  initMap(titulo, coordenadas) {
+    
+    const [first, second] = coordenadas.split(', ');
     this.latitude = +first;// o + transforma para numero
     this.longitude = +second;
 
@@ -64,7 +63,7 @@ export class MapaPage {
       .subscribe(() => {
         // Now you can use all methods safely.
         this.map.addMarker({
-          title: this.titulo,
+          title: titulo,
           icon: 'blue',
           animation: 'DROP',
           position: {

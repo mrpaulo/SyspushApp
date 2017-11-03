@@ -11,22 +11,21 @@ import { AcessarProvider } from "../../providers/acessar/acessar";
   ]
 })
 export class FotoDoAlertaPage {
-  public alerts: any;
-  public idAlert: any;
-  oneAlert: any;
+  idAlert: any;
+  oneAlert:  any = {};
   
     constructor(
       public navCtrl: NavController, 
       public ap: AcessarProvider,
       public navParams: NavParams    
     ) {
-      this.idAlert = this.navParams.get("key");
-      this.oneAlert = ap.especificoAlerta(this.idAlert);
-      this.oneAlert.subscribe(snapshot => {
-        this.oneAlert = snapshot.val();
-      });       
-    }
-  
+      //this.item = this.navParams.data.alerta;  
+      this.idAlert = this.navParams.get("key");       
+      const subscribe = ap.especificoAlerta(this.idAlert).subscribe((alerta: any) => {
+        this.oneAlert = alerta.payload.val();        
+        subscribe.unsubscribe();
+      });     
+    }  
     goBack() {
       this.navCtrl.pop();
     }

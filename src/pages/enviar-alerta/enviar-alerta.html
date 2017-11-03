@@ -38,13 +38,13 @@
   </form>
   <p>Para anexar foto ao alerta:</p>
   <ion-item>
-    <img style="width: 300px; height: 300px; margin: auto;" src="img" *ngIf="img"/>    
+    <img [src]="img" *ngIf="img" style="width: 300px; height: 300px; margin: auto;"/>    
   </ion-item>
   <button (click)="takePicture()" ion-button icon-only color="light" block icon-left style="text-align:left;">
     <ion-icon name="camera"></ion-icon>
     Tirar foto
   </button>
-  <button (click)="cancelar()" ion-button icon-only color="red" block icon-left style="text-align:left;">    
+  <button (click)="cancelar()" ion-button icon-only color="danger" block icon-left style="text-align:left;">    
     Cancelar
   </button>
 </ion-content>

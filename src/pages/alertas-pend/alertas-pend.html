@@ -11,7 +11,7 @@
   <ion-list>
     <ion-item color="none" *ngFor="let alert of itens | async " (click)="showOptions(alert.key, alert.alerta.title_alert, alert.alerta.type_alert, alert.alerta.date_alert, alert.alerta.last_description, alert.alerta.url_photo, alert.alerta.local_alert)">
       <ion-thumbnail item-left>
-        <img style="width: 80px; height: 80px;"[src]="alert.alerta.url_photo">
+        <img style="width: 80px; height: 80px;"[src]="sanitizer.bypassSecurityTrustResourceUrl(alert.alerta.url_photo)">
       </ion-thumbnail>
       <h2>Título: {{alert.alerta.title_alert}}</h2>
       <p *ngIf="alert.alerta.type_alert=='1'">Tipo Alerta: Grave (Vermelho)</p>
@@ -20,11 +20,8 @@
       <p>Data e hora: {{alert.alerta.date_alert | date:'dd/MM/yyyy - HH:mm'}}</p>
       <p>Descrição: {{alert.alerta.last_description}}</p>
       <p>Autor: {{alert.alerta.autor}}</p>       
-      <!-- <p>Url Foto: {{alert.alerta.url_photo}}</p>
-      <p>Coordenadas: {{alert.alerta.local_alert}}</p>   -->
-      
+     
     </ion-item>
-    <!-- <p><a (click)="goToFotoDoAlerta(alert.alerta.$key)">Ver foto maior</a></p>
-    <p><a (click)="goToMapa(alert.alerta.$key)">Ver no mapa</a></p> -->
+    
   </ion-list>
 </ion-content>

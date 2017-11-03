@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, ActionSheetController } from 'ionic-angular';
 import { AcessarProvider } from "../../providers/acessar/acessar";
-//import { FirebaseListObservable } from "angularfire2/database";
 import { FotoDoAlertaPage } from '../foto-do-alerta/foto-do-alerta';
 import { MapaPage } from '../mapa/mapa';
 import { AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -15,43 +15,38 @@ import { Observable } from 'rxjs/Observable';
     AcessarProvider
   ]
 })
-export class AlertasPendPage {  
+export class AlertasPendPage {
   public alerts: AngularFireList<any>;
   itens: Observable<any[]>;
 
   constructor(
     public navCtrl: NavController,
-    public alertCtrl: AlertController, 
+    public alertCtrl: AlertController,
     public ap: AcessarProvider,
-    public actionSheetCtrl: ActionSheetController    
+    public actionSheetCtrl: ActionSheetController,
+    public sanitizer: DomSanitizer
   ) {
     this.alerts = ap.listarPendAlertas();
     this.itens = this.alerts.snapshotChanges().map(changes => {
-      // Você pode acessar a key direto com o m.key em vez do m.payload.key
       return changes.map(m => ({ key: m.key, alerta: m.payload.val() }));
-    }) 
-    
-  }  
-
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad AlertasPendPage');
-  // }
-  removeAlert(alertId: string){
+    })
+  }
+  removeAlert(alertId: string) {
     this.alerts.remove(alertId);
   }
 
-  updateAlert(alertId, title_alert, type_alert, last_description){
+  updateAlert(alertId, title_alert, type_alert, last_description) {
     let prompt = this.alertCtrl.create({
       message: "Editar Alerta (Título e Descrição)",
       inputs: [
         {
           name: 'title_alert',
-          value: title_alert          
-        },        
+          value: title_alert
+        },
         {
           name: 'last_description',
-          value: last_description          
-        }        
+          value: last_description
+        }
       ],
       buttons: [
         {
@@ -64,8 +59,8 @@ export class AlertasPendPage {
           text: 'Save',
           handler: data => {
             this.alerts.update(alertId, {
-              title_alert: data.title_alert,              
-              last_description: data.last_description              
+              title_alert: data.title_alert,
+              last_description: data.last_description
             });
           }
         }
@@ -74,24 +69,24 @@ export class AlertasPendPage {
     prompt.present();
   }
 
-  updateType(alertId, type_alert){
+  updateType(alertId, type_alert) {
     let prompt = this.alertCtrl.create({
       message: "Editar tipo de Alerta: ",
-      inputs: [        
+      inputs: [
         {
           label: "Grave (Vermelho)",
           value: '1',
-          type: 'radio'                   
+          type: 'radio'
         },
         {
           label: "Médio (Amarelo)",
           value: '2',
-          type: 'radio'         
+          type: 'radio'
         },
         {
           label: "Leve (Verde)",
           value: '3',
-          type: 'radio'         
+          type: 'radio'
         }
       ],
       buttons: [
@@ -104,7 +99,7 @@ export class AlertasPendPage {
         {
           text: 'Save',
           handler: data => {
-            this.alerts.update(alertId, {              
+            this.alerts.update(alertId, {
               type_alert: data
             });
           }
@@ -136,7 +131,7 @@ export class AlertasPendPage {
             this.ap.aproveAlert(alertId, title_alert, type_alert, date_alert, last_description, url_photo, local_alert);
             this.removeAlert(alertId);
           }
-        },        
+        },
         {
           text: 'Deletar Alerta',
           role: 'destructive',

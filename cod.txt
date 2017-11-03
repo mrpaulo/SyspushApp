@@ -180,3 +180,35 @@ initPush() {
     </ion-list>
   </ion-content>
 </ion-menu>
+
+//if do upload foto
+if (this.img) {
+      const loading = this.loadingCtrl.create({
+        content: 'Carregando foto, aguarde...'
+      });
+      loading.present();
+      let storageRef = firebase.storage().ref();
+      let fullPath = '/fotos/' + this.dataString + '.jpg';
+      //tent1
+      let uploadTask = storageRef.child(fullPath).putString(this.img, firebase.storage.StringFormat.DATA_URL).then(() => {        
+        loading.dismiss(),
+          (error) => {
+            loading.dismiss();
+            alert("Erro ao fazer upload: " + error);
+          }
+      });
+      //tent2
+      // let uploadTask = storageRef.child(fullPath).putString(this.img, firebase.storage.StringFormat.DATA_URL);
+      // uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      //   (error) => {
+      //     console.error(error);
+      //   },
+      //   () => {
+      //     this.photo = uploadTask.snapshot.downloadURL          
+      //   });
+      this.photo = 'gs://syspush-prmr.appspot.com/fotos/' + this.dataString + '.jpg',
+        console.log("url photo: "+this.photo);
+        loading.dismiss()
+    } else {
+      this.photo = null;
+    }

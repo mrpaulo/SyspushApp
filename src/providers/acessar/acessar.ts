@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { AlertController, ActionSheetController, Item } from 'ionic-angular';
+import { AlertController, ActionSheetController } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
+// import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()

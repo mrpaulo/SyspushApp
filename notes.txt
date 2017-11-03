@@ -156,4 +156,6 @@ git checkout angularfire2V5
 #commit 8 >>git commit -m "Commit 8[issue angularfire2V5]"
 git push origin angularfire2V5
 #commit 9 >> consertado alguns erros do AngularFire, mudado jeito do menu para fazer diferenciação de user
+#commit 10 >> funcionando acessos mostrando e etc... falta camera
+
 

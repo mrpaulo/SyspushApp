@@ -12,7 +12,7 @@
   <ion-list id="histRicoAlerta-list2">
     <ion-item color="none" *ngFor="let alert of itens | async " (click)="showOptions(alert.key, alert.alerta.title_alert, alert.alerta.type_alert, alert.alerta.date_alert, alert.alerta.last_description, alert.alerta.url_photo, alert.alerta.local_alert, alert.alerta.penultimate_description, alert.alerta.antepenultimate_description)">
       <ion-thumbnail item-left>
-        <img [src]="'/assets/' + alert.alerta.url_img">
+        <img [src]="'assets/' + alert.alerta.url_img">
       </ion-thumbnail>
       <h2>Título: {{alert.alerta.title_alert}}</h2>
       <p *ngIf="alert.alerta.type_alert=='1'">Tipo Alerta: Grave (Vermelho)</p>

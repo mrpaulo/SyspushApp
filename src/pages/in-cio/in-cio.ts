@@ -69,28 +69,30 @@ export class InCioPage {
       pushObject.on('error').subscribe(error => alert('Error with Push plugin' + error));
     }
     else{
-      console.log("Push somente Android")
+      console.log("Push notication somente Android")
     }
   }
   //fim push
 
-  goToAlertaDetalhado(params1) {
-    console.log("idAlert: "+ params1);
-    if (!params1) params1 = {};
+  goToAlertaDetalhado(params) {    
+    if (!params) params = {};
     this.navCtrl.push(AlertaDetalhadoPage, {
-      key: params1
+      key: params
     });
   }
-  goToFotoDoAlerta(params) {
-    if (!params) params = {};
+  goToFotoDoAlerta(params) { 
+    if (!params) params = {};   
     this.navCtrl.push(FotoDoAlertaPage, {
       key: params
+      //,alerta: this.alerts
     });
   }
   goToMapa(params) {
     if (!params) params = {};
+    // Quando vc tiver o elemento passa ele em vez de passar o Id
     this.navCtrl.push(MapaPage, {
       key: params
+      //,alerta: this.alerts
     });
   }
 }
