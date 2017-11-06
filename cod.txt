@@ -212,3 +212,88 @@ if (this.img) {
     } else {
       this.photo = null;
     }
+
+
+    //enviar alerta
+    sendAlert() {
+    let dataAgora = new Date();
+    this.dataString = dataAgora.toString();
+    var usuarioAtual = firebase.auth().currentUser;
+    if (usuarioAtual) {
+      this.autor = usuarioAtual.email;
+    }
+
+    // if (this.img) {
+    //   const loading = this.loadingCtrl.create({
+    //     content: 'Carregando foto, aguarde...'
+    //   });
+    //   loading.present();
+    //   let storageRef = firebase.storage().ref();
+    //   let fullPath = '/fotos/' + this.dataString + '.jpg';
+    //   //tentativa1 ERROR Error: Reference.set failed: First argument contains undefined in property //e//ERROR CONTEXT 
+    //   storageRef.child(fullPath).putString(this.img, firebase.storage.StringFormat.DATA_URL).then((save) => {
+    //     this.photo = save.downloadURL,
+    //       (error) => {
+    //         loading.dismiss();
+    //         console.error("Erro do Firebase:" + error.code);
+    //       }
+    //   });
+    //   //tentativa2 ERROR Error: Reference.set failed: First argument contains undefined in property //e//ERROR CONTEXT 
+    //   // let uploadTask = storageRef.child(fullPath).putString(this.img, firebase.storage.StringFormat.DATA_URL);
+    //   // uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+    //   //   (snapshot) => {
+    //   //     this.photo = uploadTask.snapshot.downloadURL
+    //   //   },
+    //   //   (error) => {
+    //   //     console.error("Erro do Firebase:" + error);
+    //   //   });
+
+    //   //tentativa3 Error code de "storage/object_not_found"
+    //   //storageRef.child(fullPath).putString(this.img, 'base64');
+    //   //this.photo = storageRef.child(fullPath).getDownloadURL().then(function (url) {
+    //   //   return url
+    //   // }).catch(function (error) {
+    //   //   console.error("Erro do Firebase:" + error.code);
+    //   // });
+
+    //   //tentativa 4 (exatamente igual ao do documento do firebase store) Error: [object Object]
+    //   // let uploadTask = storageRef.child(fullPath).putString(this.img, 'base64');
+    //   // uploadTask.on('state_changed', function(snapshot){        
+    //   //   console.log('Upload is done');        
+    //   // }, function(error) {
+    //   //   console.error("Erro do Firebase:" + error);
+    //   // }, function() {        
+    //   //   this.photo = uploadTask.snapshot.downloadURL;
+    //   // });
+    //   //url parecida que deveria vir
+    //   this.photo = "https://firebasestorage.googleapis.com/v0/b/syspush-prmr.appspot.com/o/fotos%2FFri%20Nov%2003%202017%2010%3A23%3A04%20GMT-0200%20(BRST).jpg?alt=media&token=fc59ed5d-c299-4c96-b0b6-919d9d37177a";
+
+    //   console.log("this.photo : " + this.photo);
+    //   loading.dismiss()
+    // } else {
+    //   this.photo = "https://firebasestorage.googleapis.com/v0/b/syspush-prmr.appspot.com/o/img%2Fnot-found.jpg?alt=media&token=fcec94c1-9f05-4bbe-84a8-90da92924a45";
+    // }
+    if (!this.form.value.type_alert) {
+      this.form.value.type_alert = "3";
+    }
+    this.local = this.lp.obterLocal();
+    this.pendAlert = this.af.object('/pendAlertList/' + this.dataString);
+    this.pendAlert.set({
+      date_alert: this.dataString,
+      title_alert: this.form.value.title_alert,
+      type_alert: this.form.value.type_alert,
+      last_description: this.form.value.last_description,
+      local_alert: this.local,
+      url_photo: 'this.photo',
+      autor: this.autor
+    });
+    this.save(this.pendAlert, this.img);
+
+    let prompt = this.alertCtrl.create({
+      title: 'Syspush diz:',
+      message: "Alerta enviado com sucesso! Agora aguarde aprovação do moderador!",
+      buttons: [{ text: 'Ok' }]
+    });
+    prompt.present();
+    this.navCtrl.setRoot(InCioPage);
+  }

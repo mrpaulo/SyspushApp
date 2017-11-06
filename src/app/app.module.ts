@@ -29,7 +29,7 @@ import { AlertasPendPage } from "../pages/alertas-pend/alertas-pend";
 import { EditarAlertasPage } from "../pages/editar-alertas/editar-alertas";
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Push } from "@ionic-native/push";
-import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+import { CloudSettings/*, CloudModule */} from '@ionic/cloud-angular';
 
 const cloudSettings: CloudSettings = {
  'core': {

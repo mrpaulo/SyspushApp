@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { AcessarProvider } from "../../providers/acessar/acessar";
 import { Observable } from 'rxjs/Observable';
 //import { FirebaseListObservable } from "angularfire2/database";
-import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
+import { /*AngularFireDatabase, AngularFireObject,*/ AngularFireList } from 'angularfire2/database';
 
 @IonicPage()
 @Component({

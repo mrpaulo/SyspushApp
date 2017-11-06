@@ -157,5 +157,6 @@ git checkout angularfire2V5
 git push origin angularfire2V5
 #commit 9 >> consertado alguns erros do AngularFire, mudado jeito do menu para fazer diferenciação de user
 #commit 10 >> funcionando acessos mostrando e etc... falta camera
+#commit 11 >> falta só pegar url da imagem e salvar no banco, está dando como indefinida;
 
 
