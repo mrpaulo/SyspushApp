@@ -64,7 +64,7 @@
             "cordova-plugin-camera": {},
             "cordova-plugin-geolocation": {},
             "cordova-plugin-googlemaps": {
-                "API_KEY_FOR_ANDROID": "AIzaSyB6wgJQs448gRBN0XDo03WuEULy7Dl_TKI"
+                "API_KEY_FOR_ANDROID": "YOUR_KEY"
             },
             "cordova-plugin-console": {},
             "cordova-plugin-device": {},
@@ -75,7 +75,7 @@
             "cordova-plugin-file": {},
             "cordova-plugin-file-transfer": {},
             "phonegap-plugin-push": {
-                "SENDER_ID": "105371248958"
+                "SENDER_ID": "YOUR_NUMBER_ID"
             }
         },
         "platforms": [
