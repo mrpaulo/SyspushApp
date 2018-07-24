@@ -1,6 +1,6 @@
 {
   "project_info": {
-    "project_number": "105371248958",
+    "project_number": "NUMBER",
     "firebase_url": "https://syspush-prmr.firebaseio.com",
     "project_id": "syspush-prmr",
     "storage_bucket": "syspush-prmr.appspot.com"
@@ -8,20 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:105371248958:android:a31b454dadd94ef3",
+        "mobilesdk_app_id": "ID_KEY",
         "android_client_info": {
           "package_name": "br.com.syspush.android"
         }
       },
       "oauth_client": [
         {
-          "client_id": "105371248958-0rrsdfclt01ob2451hja0jomuadq418a.apps.googleusercontent.com",
+          "client_id": "ID_CLIENT",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA_V1m0I3jVhE3IcvqFbqPUHm-YBBK7Ye4"
+          "current_key": "KEY"
         }
       ],
       "services": {
